@@ -32,12 +32,14 @@ namespace Assets._Scripts.Cards.Common
 
         public void ResetToDefaultDisplay()
         {
-            transform.localScale = new Vector3(1, 1, 1);
+            transform.localScale = GlobalVariables.CardDefaultScale;
             GetComponent<Canvas>().sortingOrder = 0;
         }
 
         public void FollowPreviousCard(GameObject previousCard)
         {
+            Debug.Log($"{gameObject} following {previousCard}");
+            //TODO externaliser la logique dans DnDsystem
             transform.localScale = previousCard.transform.localScale;
             GetComponent<Canvas>().sortingOrder = previousCard.GetComponent<Canvas>().sortingOrder + 1;
 
@@ -45,8 +47,14 @@ namespace Assets._Scripts.Cards.Common
             GetComponent<CardController>().IsBeingDragged = isMoving;
 
             if (!isMoving)
+            {
+                //Debug.LogWarning($"NOT MOVING ({gameObject})");
+                transform.localScale = GlobalVariables.CardDefaultScale;
                 return;
+            }
 
+
+            //Debug.Log($"MOVING ({gameObject})");
 
             GetComponent<CardController>().IsBeingDragged = true;
             var newPos = previousCard.GetComponent<RectTransform>().anchoredPosition;
@@ -54,6 +62,35 @@ namespace Assets._Scripts.Cards.Common
             GetComponent<RectTransform>().anchoredPosition = newPos;
         }
 
+        public void MoveAndSort(Vector3 newPosition, int newOrder)
+        {
+            gameObject.GetComponent<RectTransform>().anchoredPosition = newPosition;
+            gameObject.GetComponent<Canvas>().sortingOrder = newOrder;
+        }
 
+        /// <summary>
+        /// Switch collider between full size or reduced size
+        /// </summary>
+        /// <param name="reducing"></param>
+        internal void TransformCollider(bool reducing = false)
+        {
+            var sizeY = 140f;
+            var offsetY = 0f;
+
+            if (reducing)
+            {
+                sizeY = GlobalVariables.CardOffsetOnSnap;
+                offsetY = 62.5f; ;
+            }
+
+
+            var size = GetComponent<BoxCollider2D>().size;
+            size.y = sizeY;
+            GetComponent<BoxCollider2D>().size = size;
+
+            var offset = GetComponent<BoxCollider2D>().offset;
+            offset.y = offsetY;
+            GetComponent<BoxCollider2D>().offset = offset;
+        }
     }
 }

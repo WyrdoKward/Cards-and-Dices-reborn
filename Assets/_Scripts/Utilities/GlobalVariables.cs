@@ -20,6 +20,8 @@ namespace Assets._Scripts.Utilities
         public static readonly float DefaultLerpingValue = 5f;
         public const float LerpSpeed = 25f;
         public static readonly float CardDragNDropScaleFactor = 1.05f;
+        public static readonly Vector3 CardDefaultScale = new Vector3(1, 1, 1);
+        public static readonly Vector3 CardBiggerScale = new Vector3(1.05f, 1.05f, 1.05f);
         public static readonly float CardOffsetOnSnap = 15f;
 
         //Canvas 

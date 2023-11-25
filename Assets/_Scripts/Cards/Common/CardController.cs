@@ -1,4 +1,4 @@
-﻿using Assets._Scripts.Managers;
+using Assets._Scripts.Managers;
 using Assets._Scripts.ScriptableObjects;
 using Assets._Scripts.StateMachines;
 using Assets._Scripts.StateMachines.Cards;
@@ -32,11 +32,21 @@ namespace Assets._Scripts.Cards.Common
 
         private DragAndDropSystem dragAndDropSystem;
         private RectTransform rectTransform;
-        public bool IsBeingDragged;
+        private bool isBeingDragged;
         public GameObject PreviousCardInStack;
+        //public GameObject NextCardInStack { get; private set; }
         public GameObject NextCardInStack;
 
-
+        public bool IsBeingDragged
+        {
+            get => isBeingDragged;
+            set
+            {
+                if (value != IsBeingDragged)
+                    Debug.Log($"{gameObject} isBeingDragged = {value}");
+                isBeingDragged = value;
+            }
+        }
 
         private void Awake()
         {
@@ -65,9 +75,13 @@ namespace Assets._Scripts.Cards.Common
             // a déplacer et ca marche tolujours paaaas
             if (PreviousCardInStack != null)
             {
-                GetComponent<CardDisplay>().FollowPreviousCard(PreviousCardInStack);
+                //GetComponent<CardDisplay>().FollowPreviousCard(PreviousCardInStack);
             }
 
+            if (NextCardInStack != null && IsBeingDragged)
+            {
+                NextCardInStack.GetComponent<CardDisplay>().FollowPreviousCard(gameObject);
+            }
         }
 
         public void SwitchState(IState newState)
@@ -77,21 +91,88 @@ namespace Assets._Scripts.Cards.Common
             currentState.Enter(this);
         }
 
+        public void SetNextCard(GameObject next)
+        {
+            if (next == gameObject)
+            {
+                Debug.LogWarning($"Un objet essaye de se référencer lui-même ({CardSO.Name}");
+                return;
+            }
+
+            UnlinkNextCard();
+
+            if (next == null)
+                return;
+
+            NextCardInStack = next;
+            GetComponent<CardDisplay>().TransformCollider(true); //déplacer cette logique dans une partie UI dédiée
+            next.GetComponent<CardController>().PreviousCardInStack = gameObject;
+        }
+        public void UnlinkNextCard()
+        {
+            GetComponent<CardDisplay>().TransformCollider(false);
+
+            if (NextCardInStack == null)
+                return;
+
+            NextCardInStack.GetComponent<CardController>().PreviousCardInStack = null;
+            NextCardInStack = null;
+        }
+
+        public void SetPreviousCard(GameObject previous)
+        {
+            if (previous == gameObject)
+            {
+                Debug.LogWarning($"Un objet essaye de se référencer lui-même ({CardSO.Name}");
+                return;
+            }
+
+            UnlinkPreviousCard();
+
+            if (previous == null)
+                return;
+
+
+            PreviousCardInStack = previous;
+            PreviousCardInStack.GetComponent<CardDisplay>().TransformCollider(true); //déplacer cette logique dans une partie UI dédiée
+            previous.GetComponent<CardController>().NextCardInStack = gameObject;
+
+        }
+
+        public void UnlinkPreviousCard()
+        {
+            if (PreviousCardInStack == null)
+                return;
+
+            PreviousCardInStack.GetComponent<CardDisplay>().TransformCollider(false);
+            PreviousCardInStack.GetComponent<CardController>().NextCardInStack = null;
+            PreviousCardInStack = null;
+        }
+
+
         #region Draggable
         private void OnMouseDown()
         {
             Debug.Log($"Click on {CardSO.name}");
             transform.localScale *= GlobalVariables.CardDragNDropScaleFactor;
-            IsBeingDragged = true;
-            dragAndDropSystem.SetCards(gameObject);
-            // TODO Conditionner le départ du drag à un minimum de mvt de la souris depuis la pos initiale pour pouvoir cliquer et afficher qqch sans que ca soit considéré comme du drag
         }
 
         private void OnMouseDrag() // a implémenter dans le state directement ?
         {
+            // TODO Conditionner le départ du drag à un minimum de mvt de la souris depuis la pos initiale pour pouvoir cliquer et afficher qqch sans que ca soit considéré comme du drag
+            IsBeingDragged = true;
+
+
             if (IsBeingDragged)
             {
+                Cursor.visible = false;
+                dragAndDropSystem.SetCards(gameObject);
+                transform.localScale = GlobalVariables.CardBiggerScale; //UI
                 OnDragCard?.Invoke();
+                // DnDSys => logic uniquement (set next/previous etc)
+                // CardDisplay.MoveThis()
+                // CardDisplay.MoveAttached(stackHelper.GetNextInStack())
+                // (Voir si c'es tpertienent de mettre les funct du CDisplay dans l'Invoke comme le Dnd ?
             }
         }
 
@@ -100,40 +181,12 @@ namespace Assets._Scripts.Cards.Common
         {
             Debug.Log($"Up on {CardSO.name}");
             Cursor.visible = true;
-            transform.localScale /= GlobalVariables.CardDragNDropScaleFactor;
+            transform.localScale = GlobalVariables.CardDefaultScale;
             IsBeingDragged = false;
 
             OnCardMouseUp?.Invoke();
-            StackHelper.UpdateCardStack(gameObject, dragAndDropSystem.GetTargetCard(), null, false);
+            //StackHelper.UpdateCardStack(gameObject, dragAndDropSystem.GetTargetCard(), null, false);
         }
-
-        /// <summary>
-        /// Créé le chaînage des cartes pour les stacks
-        /// </summary>
-        /// <param name="previousCard">La carte en dessous</param>
-        /// <param name="nextCard">La carte au dessus</param>
-        /// <param name="overrideWithNulls">True pour vider les previous/next</param>
-        //private void UpdateCardStack(GameObject previousCard, GameObject nextCard, bool overrideWithNulls)
-        //{
-        //    if (overrideWithNulls)
-        //    {
-        //        PreviousCardInStack = previousCard;
-        //        NextCardInStack = nextCard;
-        //    }
-
-        //    if (previousCard != null)
-        //    {
-        //        PreviousCardInStack = previousCard;
-        //        PreviousCardInStack.GetComponent<CardController>().NextCardInStack = gameObject;
-        //    }
-
-        //    if (nextCard != null)
-        //    {
-        //        NextCardInStack = nextCard;
-        //        NextCardInStack.GetComponent<CardController>().PreviousCardInStack = gameObject;
-        //    }
-
-        //}
         #endregion
     }
 }

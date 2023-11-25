@@ -19,8 +19,6 @@ namespace Assets._Scripts.Systems
             cardController = controller;
             cardController.OnDragCard += DragCard;
             cardController.OnCardMouseUp += HandleMouseUp;
-            //cardController.GetComponent<Canvas>().overrideSorting = true;
-            //canvas = GameObject.Find("Environement Canvas").GetComponent<Canvas>();
             rectTransform = transform;
         }
 
@@ -38,7 +36,6 @@ namespace Assets._Scripts.Systems
 
         private void DragCard()
         {
-            Cursor.visible = false;
             var target = InputHelper.GetCursorPositionInWorld(rectTransform);
             _movedCard.GetComponent<Canvas>().sortingOrder = GlobalVariables.OnDragCardSortingLayer;
             var delta = _movedCard.transform.position - target;
@@ -52,10 +49,19 @@ namespace Assets._Scripts.Systems
 
         private void HandleMouseUp()
         {
-            // if(dragAndDropSystem.OverlapAnotherCard(thisCard) => true si n'importe quel bout des 2 rectangles se chevauchent + voir comment récupérer la liste de toutes les cartes
-            //      dragAndDropSystem.ProcessDropCard(); => p-ê mettre la logique de OverlapAnotherCard dans ProcessDropCard ?
+            // Determiner les liens à créer/casser selon la situation
+            if (!FindOverlappedCardIfExists())
+            {
+                _movedCard.GetComponent<CardController>().UnlinkPreviousCard();
+                //ATTENTION On ne peut pas encore poser un stack sur une carte
+            }
+            else
+            {
+                _movedCard.GetComponent<CardController>().SetPreviousCard(_targetCard);
+            }
 
-            ProcessDropCard();
+            // Appliquer les modifs sur l'UI
+            ProcessDropCardOnUI();
 
         }
 
@@ -70,35 +76,22 @@ namespace Assets._Scripts.Systems
             rectTransform.rotation = Quaternion.Lerp(rectTransform.rotation, rotation, Time.deltaTime * speed);
         }
 
-        internal void ProcessDropCard()
+        internal void ProcessDropCardOnUI()
         {
             _movedCard.GetComponent<Canvas>().sortingOrder = GlobalVariables.DefaultCardSortingLayer;
 
-            if (!FindOverlappedCardIfExists())
-            {
-
-                StackHelper.ClearPrevious(_movedCard);
-                //ATTENTION On ne ,peut pas encore poser un stack sur une carte
+            if (_targetCard == null)
                 return;
-            }
-
 
             Debug.Log($"Dropped {_movedCard.GetComponent<CardDisplay>().name} on {_targetCard.GetComponent<CardDisplay>().name}");
 
-            //determiner la carte la plus haute du stack pour en faire la target à se snapper dessus
-            _targetCard = StackHelper.GetLastCardOfStack(_targetCard);
-            //Debug.Log($"But last card of stack is {_targetCard.GetComponent<CardDisplay>().name}");
-            var targetPosition = _targetCard.GetComponent<RectTransform>().anchoredPosition;
-            var baseSortingOrder = _targetCard.GetComponent<Canvas>().sortingOrder;
+            var position = _targetCard.GetComponent<RectTransform>().anchoredPosition;
+            position.y -= GlobalVariables.CardOffsetOnSnap * _targetCard.GetComponent<RectTransform>().localScale.y;
 
+            var sortingOrder = _targetCard.GetComponent<Canvas>().sortingOrder;
+            sortingOrder += 1;
 
-            //Snap cards on UI 
-            //TODO : Boucler ici pour les stacks
-            targetPosition.y -= GlobalVariables.CardOffsetOnSnap * _targetCard.GetComponent<RectTransform>().localScale.y;
-            _movedCard.GetComponent<RectTransform>().anchoredPosition = targetPosition;
-            //Put dragged card on top
-            baseSortingOrder += 1;
-            _movedCard.GetComponent<Canvas>().sortingOrder = baseSortingOrder;
+            _movedCard.GetComponent<CardDisplay>().MoveAndSort(position, sortingOrder);
 
         }
 
@@ -108,23 +101,29 @@ namespace Assets._Scripts.Systems
         }
 
         /// <summary>
-        /// Assign the card under "this.movedCard" to "this.targetCard"
+        /// Assign the card under "this.movedCard" to "this.targetCard". If it in a stack, assign the last one as the target
         /// </summary>
         /// <returns>False if no card is found</returns>
         private bool FindOverlappedCardIfExists()
         {
             var currentStack = new List<GameObject>() { _movedCard };
             currentStack.AddRange(StackHelper.GetCardsAboveInStack(_movedCard));
-
+            GameObject foundCard = null;
             foreach (var card in GameObject.Find("CardManager").GetComponent<CardManager>().GetAllCardsExcept(currentStack))
             {
                 if (card.GetComponent<BoxCollider2D>().bounds.Intersects(_movedCard.GetComponent<BoxCollider2D>().bounds))
                 {
-                    _targetCard = card;
-                    return true;
+                    foundCard = card;
+                    break;
                 }
             }
-            return false;
+
+            if (foundCard == null)
+                return false;
+
+            // Determiner la carte la plus haute du stack pour en faire la target à se snapper dessus
+            _targetCard = StackHelper.GetLastCardOfStack(foundCard);
+            return true;
         }
 
         private void MoveAttachedCards(GameObject card, Vector2 delta, float speed = GlobalVariables.LerpSpeed)

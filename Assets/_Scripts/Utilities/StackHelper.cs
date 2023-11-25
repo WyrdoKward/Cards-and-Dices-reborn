@@ -22,25 +22,25 @@ namespace Assets._Scripts.Utilities
             {
                 //Dereferences thisCard from the next/previous if they are set to null
                 if (previousCard == null && thisController.PreviousCardInStack != null)
-                    thisController.PreviousCardInStack.GetComponent<CardController>().NextCardInStack = null;
+                    thisController.PreviousCardInStack.GetComponent<CardController>().SetNextCard(null);
 
                 if (nextCard == null && thisController.NextCardInStack != null)
-                    thisController.NextCardInStack.GetComponent<CardController>().PreviousCardInStack = null;
+                    thisController.NextCardInStack.GetComponent<CardController>().SetPreviousCard(null);
 
-                thisController.PreviousCardInStack = previousCard;
-                thisController.NextCardInStack = nextCard;
+                thisController.SetPreviousCard(previousCard);
+                thisController.SetNextCard(nextCard);
             }
 
             if (previousCard != null)
             {
-                thisController.PreviousCardInStack = previousCard;
-                thisController.PreviousCardInStack.GetComponent<CardController>().NextCardInStack = thisCard;
+                thisController.SetPreviousCard(previousCard);
+                thisController.PreviousCardInStack.GetComponent<CardController>().SetNextCard(thisCard);
             }
 
             if (nextCard != null)
             {
-                thisController.NextCardInStack = nextCard;
-                thisController.NextCardInStack.GetComponent<CardController>().PreviousCardInStack = thisCard;
+                thisController.SetNextCard(nextCard);
+                thisController.NextCardInStack.GetComponent<CardController>().SetPreviousCard(thisCard); ;
             }
         }
 
@@ -52,9 +52,9 @@ namespace Assets._Scripts.Utilities
             var thisController = thisCard.GetComponent<CardController>();
 
             if (thisController.PreviousCardInStack != null)
-                thisController.PreviousCardInStack.GetComponent<CardController>().NextCardInStack = null;
+                thisController.PreviousCardInStack.GetComponent<CardController>().SetNextCard(null);
 
-            thisController.PreviousCardInStack = null;
+            thisController.SetPreviousCard(null);
         }
 
         /// <summary>
