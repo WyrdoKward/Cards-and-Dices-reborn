@@ -17,7 +17,7 @@ namespace Assets._Scripts.Systems
         public DragAndDropSystem(CardController controller, RectTransform transform)
         {
             cardController = controller;
-            cardController.OnDragCard += DragCard;
+            //cardController.OnDragCard += DragCard;
             cardController.OnCardMouseUp += HandleMouseUp;
             rectTransform = transform;
         }
@@ -34,17 +34,14 @@ namespace Assets._Scripts.Systems
             return _targetCard;
         }
 
-        private void DragCard()
-        {
-            var target = InputHelper.GetCursorPositionInWorld(rectTransform);
-            _movedCard.GetComponent<Canvas>().sortingOrder = GlobalVariables.OnDragCardSortingLayer;
-            var delta = _movedCard.transform.position - target;
-            delta.z = 0;
+        //private void DragCard()
+        //{
+        //    var target = InputHelper.GetCursorPositionInWorld(rectTransform);
+        //    _movedCard.GetComponent<Canvas>().sortingOrder = GlobalVariables.OnDragCardSortingLayer;
 
 
-            LerpThisTo(target);
-            //MoveAttachedCards(_movedCard, new Vector2(delta.x, delta.y)); //marche pas z fait n'importe quoi
-        }
+        //    LerpThisTo(target);
+        //}
 
 
         private void HandleMouseUp()

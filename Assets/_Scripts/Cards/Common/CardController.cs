@@ -1,4 +1,4 @@
-using Assets._Scripts.Managers;
+﻿using Assets._Scripts.Managers;
 using Assets._Scripts.ScriptableObjects;
 using Assets._Scripts.StateMachines;
 using Assets._Scripts.StateMachines.Cards;
@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace Assets._Scripts.Cards.Common
 {
-    internal class CardController : MonoBehaviour, IStateContext
+    public class CardController : MonoBehaviour, IStateContext
     {
         [SerializeField]
         private Canvas canvas;
@@ -17,14 +17,14 @@ namespace Assets._Scripts.Cards.Common
 
         // State Machine
         private CardBaseState currentState;
-        internal CardIdleState IdleState = new();
-        internal CardInMotionState InMotionState = new();
-        internal CardTimedState TimedState = new();
-        internal CardPausedState PausedState = new();
+        public CardIdleState IdleState = new();
+        public CardMovingState MovingState = new();
+        public CardFollowingState FollowingState = new();
+        //public CardPausedState PausedState = new();
 
 
         public event Action<BaseCardSO> OnStartCard;
-        public event Action OnDragCard;
+        //public event Action OnDragCard;
         public event Action OnCardMouseUp;
 
         [NonSerialized]
@@ -64,13 +64,9 @@ namespace Assets._Scripts.Cards.Common
             currentState.Enter(this);
         }
 
-        void FixedUpdate()
-        {
 
-        }
         void Update()
         {
-            currentState.HandleInput(this);
             currentState.UpdateState(this);
             // a déplacer et ca marche tolujours paaaas
             if (PreviousCardInStack != null)
@@ -91,6 +87,7 @@ namespace Assets._Scripts.Cards.Common
             currentState.Enter(this);
         }
 
+        #region LinkCards
         public void SetNextCard(GameObject next)
         {
             if (next == gameObject)
@@ -148,39 +145,30 @@ namespace Assets._Scripts.Cards.Common
             PreviousCardInStack.GetComponent<CardController>().NextCardInStack = null;
             PreviousCardInStack = null;
         }
-
+        #endregion
 
         #region Draggable
         private void OnMouseDown()
         {
             Debug.Log($"Click on {CardSO.name}");
-            transform.localScale *= GlobalVariables.CardDragNDropScaleFactor;
         }
 
         private void OnMouseDrag() // a implémenter dans le state directement ?
         {
             // TODO Conditionner le départ du drag à un minimum de mvt de la souris depuis la pos initiale pour pouvoir cliquer et afficher qqch sans que ca soit considéré comme du drag
-            IsBeingDragged = true;
+            currentState.OnMouseDrag(this);
 
-
-            if (IsBeingDragged)
-            {
-                Cursor.visible = false;
-                dragAndDropSystem.SetCards(gameObject);
-                transform.localScale = GlobalVariables.CardBiggerScale; //UI
-                OnDragCard?.Invoke();
-                // DnDSys => logic uniquement (set next/previous etc)
-                // CardDisplay.MoveThis()
-                // CardDisplay.MoveAttached(stackHelper.GetNextInStack())
-                // (Voir si c'es tpertienent de mettre les funct du CDisplay dans l'Invoke comme le Dnd ?
-            }
+            // DnDSys => logic uniquement (set next/previous etc)
+            // CardDisplay.MoveThis()
+            // CardDisplay.MoveAttached(stackHelper.GetNextInStack())
+            // (Voir si c'es tpertienent de mettre les funct du CDisplay dans l'Invoke comme le Dnd ?
         }
+
 
         //quand on relache la carte
         private void OnMouseUp()
         {
             Debug.Log($"Up on {CardSO.name}");
-            Cursor.visible = true;
             transform.localScale = GlobalVariables.CardDefaultScale;
             IsBeingDragged = false;
 
@@ -190,3 +178,4 @@ namespace Assets._Scripts.Cards.Common
         #endregion
     }
 }
+

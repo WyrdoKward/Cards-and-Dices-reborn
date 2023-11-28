@@ -4,7 +4,7 @@ namespace Assets._Scripts.ScriptableObjects
 {
     [ExecuteInEditMode]
     [CreateAssetMenu(fileName = "New Card", menuName = "Card")]
-    internal class BaseCardSO : ScriptableObject
+    public class BaseCardSO : ScriptableObject
     {
         public string Name;
         public string Description; // Short
