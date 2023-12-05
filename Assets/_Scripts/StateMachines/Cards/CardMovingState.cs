@@ -35,9 +35,21 @@ namespace Assets._Scripts.StateMachines.Cards
             _rectTransform.position = Vector3.Lerp(_rectTransform.position, targetPosition, Time.deltaTime * GlobalVariables.LerpSpeed);
         }
 
-        public override void UpdateState(IStateContext uncastController)
+        public override void OnMouseUp(IStateContext uncastController)
         {
             CastContext(uncastController);
+            var targetCard = DragAndDropHelper.FindOverlappedCardIfExists(cardGO);
+            cardController.SetPreviousCard(targetCard);
+
+            if (targetCard != null)
+                cardController.SwitchState(cardController.FollowingState);
+            else
+                cardController.SwitchState(cardController.IdleState);
+        }
+
+        public override void UpdateState(IStateContext uncastController)
+        {
+            //CastContext(uncastController);
 
         }
     }

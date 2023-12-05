@@ -23,6 +23,11 @@ namespace Assets._Scripts.StateMachines.Cards
             cardController.SwitchState(cardController.MovingState);
         }
 
+        public override void OnMouseUp(IStateContext cardController)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public override void UpdateState(IStateContext uncastController)
         {
             CastContext(uncastController);

@@ -3,7 +3,6 @@ using Assets._Scripts.ScriptableObjects;
 using Assets._Scripts.StateMachines;
 using Assets._Scripts.StateMachines.Cards;
 using Assets._Scripts.Systems;
-using Assets._Scripts.Utilities;
 using System;
 using UnityEngine;
 
@@ -168,11 +167,12 @@ namespace Assets._Scripts.Cards.Common
         //quand on relache la carte
         private void OnMouseUp()
         {
-            Debug.Log($"Up on {CardSO.name}");
-            transform.localScale = GlobalVariables.CardDefaultScale;
-            IsBeingDragged = false;
+            currentState.OnMouseUp(this);
+            //    Debug.Log($"Up on {CardSO.name}");
+            //    transform.localScale = GlobalVariables.CardDefaultScale;
+            //    IsBeingDragged = false;
 
-            OnCardMouseUp?.Invoke();
+            //    OnCardMouseUp?.Invoke();
             //StackHelper.UpdateCardStack(gameObject, dragAndDropSystem.GetTargetCard(), null, false);
         }
         #endregion

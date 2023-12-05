@@ -1,4 +1,5 @@
 ﻿using Assets._Scripts.Cards.Common;
+using UnityEngine;
 
 namespace Assets._Scripts.StateMachines
 {
@@ -12,11 +13,14 @@ namespace Assets._Scripts.StateMachines
 
 
         protected CardController cardController;
+        protected GameObject cardGO;
         public void CastContext(IStateContext uncastContext)
         {
             cardController = (CardController)uncastContext;
+            cardGO = cardController.gameObject;
         }
 
         public abstract void OnMouseDrag(IStateContext cardController);
+        public abstract void OnMouseUp(IStateContext cardController);
     }
 }
