@@ -101,12 +101,12 @@ namespace Assets._Scripts.Cards.Common
                 return;
 
             NextCardInStack = next;
-            GetComponent<CardDisplay>().TransformCollider(true); //déplacer cette logique dans une partie UI dédiée
+            GetComponent<CardDisplay>().ReduceCollider(); //déplacer cette logique dans une partie UI dédiée
             next.GetComponent<CardController>().PreviousCardInStack = gameObject;
         }
         public void UnlinkNextCard()
         {
-            GetComponent<CardDisplay>().TransformCollider(false);
+            GetComponent<CardDisplay>().ResetCollider();
 
             if (NextCardInStack == null)
                 return;
@@ -130,7 +130,7 @@ namespace Assets._Scripts.Cards.Common
 
 
             PreviousCardInStack = previous;
-            PreviousCardInStack.GetComponent<CardDisplay>().TransformCollider(true); //déplacer cette logique dans une partie UI dédiée
+            PreviousCardInStack.GetComponent<CardDisplay>().ReduceCollider(); //déplacer cette logique dans une partie UI dédiée
             previous.GetComponent<CardController>().NextCardInStack = gameObject;
 
         }
@@ -140,7 +140,7 @@ namespace Assets._Scripts.Cards.Common
             if (PreviousCardInStack == null)
                 return;
 
-            PreviousCardInStack.GetComponent<CardDisplay>().TransformCollider(false);
+            PreviousCardInStack.GetComponent<CardDisplay>().ResetCollider();
             PreviousCardInStack.GetComponent<CardController>().NextCardInStack = null;
             PreviousCardInStack = null;
         }

@@ -71,19 +71,23 @@ namespace Assets._Scripts.Cards.Common
         /// <summary>
         /// Switch collider between full size or reduced size
         /// </summary>
-        /// <param name="reducing"></param>
-        internal void TransformCollider(bool reducing = false)
+        internal void ReduceCollider()
+        {
+            var sizeY = GlobalVariables.CardOffsetOnSnap;
+            var offsetY = 62.5f; ;
+
+            ApplyToCollider(sizeY, offsetY);
+        }
+
+        internal void ResetCollider()
         {
             var sizeY = 140f;
             var offsetY = 0f;
+            ApplyToCollider(sizeY, offsetY);
+        }
 
-            if (reducing)
-            {
-                sizeY = GlobalVariables.CardOffsetOnSnap;
-                offsetY = 62.5f; ;
-            }
-
-
+        private void ApplyToCollider(float sizeY, float offsetY)
+        {
             var size = GetComponent<BoxCollider2D>().size;
             size.y = sizeY;
             GetComponent<BoxCollider2D>().size = size;
@@ -93,4 +97,3 @@ namespace Assets._Scripts.Cards.Common
             GetComponent<BoxCollider2D>().offset = offset;
         }
     }
-}
