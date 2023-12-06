@@ -14,12 +14,18 @@ namespace Assets._Scripts.Cards.Common
         public TextMeshProUGUI NameText;
         public TextMeshProUGUI DescriptionText;
         public Image ArtworkImage;
+        public TextMeshProUGUI DebugInfo;
 
 
         void Awake()
         {
             var cardController = GetComponent<CardController>();
             cardController.OnStartCard += LoadCardData;
+        }
+
+        private void Update()
+        {
+            DebugInfo.text = GetComponent<CardController>().currentState.GetType().Name;
         }
 
         private void LoadCardData(BaseCardSO cardSO)
@@ -36,27 +42,31 @@ namespace Assets._Scripts.Cards.Common
             GetComponent<Canvas>().sortingOrder = 0;
         }
 
+        public void SnapOnCard(GameObject targetCard)
+        {
+            gameObject.GetComponent<Canvas>().sortingOrder = GlobalVariables.DefaultCardSortingLayer;
+
+            if (targetCard == null)
+                return;
+
+            Debug.Log($"Dropped {gameObject.GetComponent<CardDisplay>().name} on {targetCard.GetComponent<CardDisplay>().name}");
+
+            var position = targetCard.GetComponent<RectTransform>().anchoredPosition;
+            position.y -= GlobalVariables.CardOffsetOnSnap * targetCard.GetComponent<RectTransform>().localScale.y;
+
+            var sortingOrder = targetCard.GetComponent<Canvas>().sortingOrder;
+            sortingOrder += 1;
+
+            gameObject.GetComponent<CardDisplay>().MoveAndSort(position, sortingOrder);
+
+        }
+
         public void FollowPreviousCard(GameObject previousCard)
         {
-            Debug.Log($"{gameObject} following {previousCard}");
             //TODO externaliser la logique dans DnDsystem
             transform.localScale = previousCard.transform.localScale;
             GetComponent<Canvas>().sortingOrder = previousCard.GetComponent<Canvas>().sortingOrder + 1;
 
-            var isMoving = previousCard.GetComponent<CardController>().IsBeingDragged;
-            GetComponent<CardController>().IsBeingDragged = isMoving;
-
-            if (!isMoving)
-            {
-                //Debug.LogWarning($"NOT MOVING ({gameObject})");
-                transform.localScale = GlobalVariables.CardDefaultScale;
-                return;
-            }
-
-
-            //Debug.Log($"MOVING ({gameObject})");
-
-            GetComponent<CardController>().IsBeingDragged = true;
             var newPos = previousCard.GetComponent<RectTransform>().anchoredPosition;
             newPos.y -= GlobalVariables.CardOffsetOnSnap * previousCard.GetComponent<RectTransform>().localScale.y;
             GetComponent<RectTransform>().anchoredPosition = newPos;
@@ -74,14 +84,14 @@ namespace Assets._Scripts.Cards.Common
         internal void ReduceCollider()
         {
             var sizeY = GlobalVariables.CardOffsetOnSnap;
-            var offsetY = 62.5f; ;
+            var offsetY = GlobalVariables.SnapOffsetY;
 
             ApplyToCollider(sizeY, offsetY);
         }
 
         internal void ResetCollider()
         {
-            var sizeY = 140f;
+            var sizeY = GlobalVariables.CardSizeY;
             var offsetY = 0f;
             ApplyToCollider(sizeY, offsetY);
         }
@@ -97,3 +107,4 @@ namespace Assets._Scripts.Cards.Common
             GetComponent<BoxCollider2D>().offset = offset;
         }
     }
+}

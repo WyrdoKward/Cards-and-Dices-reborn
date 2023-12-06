@@ -1,4 +1,5 @@
-﻿using Assets._Scripts.Utilities;
+﻿using Assets._Scripts.Cards.Common;
+using Assets._Scripts.Utilities;
 using UnityEngine;
 
 namespace Assets._Scripts.StateMachines.Cards
@@ -9,19 +10,25 @@ namespace Assets._Scripts.StateMachines.Cards
         public override void Enter(IStateContext uncastController)
         {
             CastContext(uncastController);
-            Debug.Log("CardMovingState ENTER");
+
             _rectTransform = cardController.GetComponent<RectTransform>();
-            cardController.IsBeingDragged = true;
             Cursor.visible = false;
             cardController.transform.localScale = GlobalVariables.CardBiggerScale;
             cardController.GetComponent<Canvas>().sortingOrder = GlobalVariables.OnDragCardSortingLayer;
+
+            //if next => switch thenm to follow
+            var nextCard = cardController.NextCardInStack;
+            if (nextCard != null)
+            {
+                var nextController = nextCard.GetComponent<CardController>();
+                nextController.SwitchState(nextController.FollowingState);
+            }
         }
 
         public override void Exit(IStateContext uncastController)
         {
             CastContext(uncastController);
-            Debug.Log("CardMovingState EXIT");
-            cardController.IsBeingDragged = false;
+
             Cursor.visible = true;
             cardController.transform.localScale = GlobalVariables.CardDefaultScale;
             cardController.GetComponent<Canvas>().sortingOrder = GlobalVariables.DefaultCardSortingLayer;
@@ -40,6 +47,9 @@ namespace Assets._Scripts.StateMachines.Cards
             CastContext(uncastController);
             var targetCard = DragAndDropHelper.FindOverlappedCardIfExists(cardGO);
             cardController.SetPreviousCard(targetCard);
+
+            //Snap on target card
+            cardController.GetComponent<CardDisplay>().SnapOnCard(targetCard);
 
             if (targetCard != null)
                 cardController.SwitchState(cardController.FollowingState);

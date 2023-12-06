@@ -1,11 +1,13 @@
 ﻿using Assets._Scripts.Cards.Common;
 using Assets._Scripts.Managers;
 using Assets._Scripts.Utilities;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets._Scripts.Systems
 {
+    [Obsolete]
     internal class DragAndDropSystem
     {
         private readonly Canvas canvas;
@@ -18,7 +20,7 @@ namespace Assets._Scripts.Systems
         {
             cardController = controller;
             //cardController.OnDragCard += DragCard;
-            cardController.OnCardMouseUp += HandleMouseUp;
+            //cardController.OnCardMouseUp += HandleMouseUp;
             rectTransform = transform;
         }
 

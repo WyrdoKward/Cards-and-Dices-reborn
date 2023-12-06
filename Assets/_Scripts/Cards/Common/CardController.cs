@@ -2,7 +2,6 @@
 using Assets._Scripts.ScriptableObjects;
 using Assets._Scripts.StateMachines;
 using Assets._Scripts.StateMachines.Cards;
-using Assets._Scripts.Systems;
 using System;
 using UnityEngine;
 
@@ -15,48 +14,25 @@ namespace Assets._Scripts.Cards.Common
         public BaseCardSO CardSO;
 
         // State Machine
-        private CardBaseState currentState;
+        public CardBaseState currentState;
         public CardIdleState IdleState = new();
         public CardMovingState MovingState = new();
         public CardFollowingState FollowingState = new();
         //public CardPausedState PausedState = new();
 
-
         public event Action<BaseCardSO> OnStartCard;
-        //public event Action OnDragCard;
-        public event Action OnCardMouseUp;
 
-        [NonSerialized]
-        public bool IsSelected;
-
-        private DragAndDropSystem dragAndDropSystem;
-        private RectTransform rectTransform;
-        private bool isBeingDragged;
         public GameObject PreviousCardInStack;
-        //public GameObject NextCardInStack { get; private set; }
         public GameObject NextCardInStack;
 
-        public bool IsBeingDragged
-        {
-            get => isBeingDragged;
-            set
-            {
-                if (value != IsBeingDragged)
-                    Debug.Log($"{gameObject} isBeingDragged = {value}");
-                isBeingDragged = value;
-            }
-        }
 
         private void Awake()
         {
-            rectTransform = GetComponent<RectTransform>();
             GameObject.Find("CardManager").GetComponent<CardManager>().RegisterCardToGlobalList(gameObject);
         }
 
         void Start()
         {
-            //Debug.Log("Start CardController");
-            dragAndDropSystem = new DragAndDropSystem(this, rectTransform);
             OnStartCard?.Invoke(CardSO);
 
             currentState = IdleState;
@@ -67,16 +43,6 @@ namespace Assets._Scripts.Cards.Common
         void Update()
         {
             currentState.UpdateState(this);
-            // a déplacer et ca marche tolujours paaaas
-            if (PreviousCardInStack != null)
-            {
-                //GetComponent<CardDisplay>().FollowPreviousCard(PreviousCardInStack);
-            }
-
-            if (NextCardInStack != null && IsBeingDragged)
-            {
-                NextCardInStack.GetComponent<CardDisplay>().FollowPreviousCard(gameObject);
-            }
         }
 
         public void SwitchState(IState newState)
@@ -152,15 +118,10 @@ namespace Assets._Scripts.Cards.Common
             Debug.Log($"Click on {CardSO.name}");
         }
 
-        private void OnMouseDrag() // a implémenter dans le state directement ?
+        private void OnMouseDrag()
         {
             // TODO Conditionner le départ du drag à un minimum de mvt de la souris depuis la pos initiale pour pouvoir cliquer et afficher qqch sans que ca soit considéré comme du drag
             currentState.OnMouseDrag(this);
-
-            // DnDSys => logic uniquement (set next/previous etc)
-            // CardDisplay.MoveThis()
-            // CardDisplay.MoveAttached(stackHelper.GetNextInStack())
-            // (Voir si c'es tpertienent de mettre les funct du CDisplay dans l'Invoke comme le Dnd ?
         }
 
 
@@ -168,12 +129,6 @@ namespace Assets._Scripts.Cards.Common
         private void OnMouseUp()
         {
             currentState.OnMouseUp(this);
-            //    Debug.Log($"Up on {CardSO.name}");
-            //    transform.localScale = GlobalVariables.CardDefaultScale;
-            //    IsBeingDragged = false;
-
-            //    OnCardMouseUp?.Invoke();
-            //StackHelper.UpdateCardStack(gameObject, dragAndDropSystem.GetTargetCard(), null, false);
         }
         #endregion
     }

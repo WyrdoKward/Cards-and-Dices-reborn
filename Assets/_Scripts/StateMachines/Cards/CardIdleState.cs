@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Assets._Scripts.Cards.Common;
+using Assets._Scripts.Utilities;
 
 namespace Assets._Scripts.StateMachines.Cards
 {
@@ -7,13 +8,20 @@ namespace Assets._Scripts.StateMachines.Cards
         public override void Enter(IStateContext uncastController)
         {
             CastContext(uncastController);
-            Debug.Log("CardIdleState ENTER");
+            cardGO.transform.localScale = GlobalVariables.CardDefaultScale;
+
+            //if next => switch thenm to follow
+            var nextCard = cardController.NextCardInStack;
+            if (nextCard != null)
+            {
+                var nextController = nextCard.GetComponent<CardController>();
+                nextController.SwitchState(nextController.IdleState);
+            }
         }
 
         public override void Exit(IStateContext uncastController)
         {
             CastContext(uncastController);
-            Debug.Log("CardIdleState EXIT");
         }
 
         public override void OnMouseDrag(IStateContext uncastController)
@@ -21,11 +29,18 @@ namespace Assets._Scripts.StateMachines.Cards
             CastContext(uncastController);
             //TODO Ajouter contrôle de mvt minimum
             cardController.SwitchState(cardController.MovingState);
+            //// Passer toutes les autres cartes au dessus dans le stack en following
+            ///// Useless, c'est fait dans moving.Enter
+            //foreach (var card in StackHelper.GetCardsAboveInStack(cardGO))
+            //{
+            //    var nextController = card.GetComponent<CardController>();
+            //    nextController.SwitchState(nextController.FollowingState);
+            //}
         }
 
-        public override void OnMouseUp(IStateContext cardController)
+        public override void OnMouseUp(IStateContext uncastController)
         {
-            throw new System.NotImplementedException();
+            CastContext(uncastController);
         }
 
         public override void UpdateState(IStateContext uncastController)

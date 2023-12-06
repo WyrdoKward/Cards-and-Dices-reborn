@@ -11,16 +11,16 @@ namespace Assets._Scripts.StateMachines
         public abstract void Exit(IStateContext card);
         #endregion
 
-
         protected CardController cardController;
         protected GameObject cardGO;
-        public void CastContext(IStateContext uncastContext)
+
+        public abstract void OnMouseDrag(IStateContext cardController);
+        public abstract void OnMouseUp(IStateContext cardController);
+
+        protected void CastContext(IStateContext uncastContext)
         {
             cardController = (CardController)uncastContext;
             cardGO = cardController.gameObject;
         }
-
-        public abstract void OnMouseDrag(IStateContext cardController);
-        public abstract void OnMouseUp(IStateContext cardController);
     }
 }

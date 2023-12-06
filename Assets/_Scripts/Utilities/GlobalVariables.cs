@@ -4,10 +4,6 @@ namespace Assets._Scripts.Utilities
 {
     internal static class GlobalVariables
     {
-
-        private static float cardElementsScaleInt = 0.42552f;
-        public static Vector3 CardElementsScale = new Vector3(cardElementsScaleInt, cardElementsScaleInt, cardElementsScaleInt);
-
         #region CardTypes
         public static readonly Color FOLLOWER_DefaultSliderColor = Color.cyan;
         public static readonly Color LOCATION_DefaultSliderColor = Color.green;
@@ -23,6 +19,11 @@ namespace Assets._Scripts.Utilities
         public static readonly Vector3 CardDefaultScale = new Vector3(1, 1, 1);
         public static readonly Vector3 CardBiggerScale = new Vector3(1.05f, 1.05f, 1.05f);
         public static readonly float CardOffsetOnSnap = 15f;
+
+        //Colliders
+        public static readonly float CardSizeY = 140f;
+        public static readonly float SnapOffsetY = 62.5f;
+
 
         //Canvas 
         public static readonly int DefaultCardSortingLayer = 0; //Default layer for a card just laying on the table
