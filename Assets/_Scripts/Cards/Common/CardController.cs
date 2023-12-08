@@ -30,6 +30,7 @@ namespace Assets._Scripts.Cards.Common
         private void Awake()
         {
             GameObject.Find("CardManager").GetComponent<CardManager>().RegisterCardToGlobalList(gameObject);
+            CardSO.InitializedCardWithScriptableObject(gameObject);
         }
 
         void Start()

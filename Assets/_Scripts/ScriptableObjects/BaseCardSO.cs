@@ -2,9 +2,7 @@
 
 namespace Assets._Scripts.ScriptableObjects
 {
-    [ExecuteInEditMode]
-    [CreateAssetMenu(fileName = "New Card", menuName = "Card")]
-    public class BaseCardSO : ScriptableObject
+    public abstract class BaseCardSO : ScriptableObject
     {
         public string Name;
         public string Description; // Short
@@ -15,6 +13,10 @@ namespace Assets._Scripts.ScriptableObjects
         public void Print()
         {
             Debug.Log($"{Name}{(IsUnique ? ", unique" : "")}");
+        }
+
+        public virtual void InitializedCardWithScriptableObject(GameObject cardBodyGO)
+        {
         }
     }
 }

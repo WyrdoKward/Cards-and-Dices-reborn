@@ -4,15 +4,15 @@ using UnityEngine;
 namespace Assets._Scripts.ScriptableObjects
 {
     [ExecuteInEditMode]
-    [CreateAssetMenu(fileName = "New Location", menuName = "Card/Location")]
-    internal class LocationCardSO : BaseCardSO
+    [CreateAssetMenu(fileName = "New Follower", menuName = "Card/Follower")]
+    internal class FollowerCardSO : BaseCardSO
     {
 
         public override void InitializedCardWithScriptableObject(GameObject cardBodyGO)
         {
             base.InitializedCardWithScriptableObject(cardBodyGO);
 
-            cardBodyGO.AddComponent<LocationLogic>();
+            cardBodyGO.AddComponent<FollowerLogic>();
         }
     }
 }

@@ -435,11 +435,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   allCards: []
---- !u!1 &342324866 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4828187005928406219, guid: 5d0bcb01c6904a44bb27a137922007d6, type: 3}
-  m_PrefabInstance: {fileID: 764423333}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &367836667 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4828187005928406220, guid: 5d0bcb01c6904a44bb27a137922007d6, type: 3}
@@ -496,9 +491,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6aad0dbd9dcf2e459d0a05944939358, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CardToWatch: {fileID: 5527363170144169360}
-  cardPos: {fileID: 457150892}
-  mousePos: {fileID: 1317204889}
 --- !u!1 &457150890
 GameObject:
   m_ObjectHideFlags: 0
@@ -769,14 +761,14 @@ PrefabInstance:
     - target: {fileID: 3048168227795186792, guid: 5d0bcb01c6904a44bb27a137922007d6, type: 3}
       propertyPath: CardSO
       value: 
-      objectReference: {fileID: 11400000, guid: 3ec33c973c87f1248bc5a591c6de6aca, type: 2}
+      objectReference: {fileID: 11400000, guid: 3723570ee49e4c046b730fdc4b465c3a, type: 2}
     - target: {fileID: 3048168227795186792, guid: 5d0bcb01c6904a44bb27a137922007d6, type: 3}
       propertyPath: canvas
       value: 
       objectReference: {fileID: 1931166589}
     - target: {fileID: 4828187005928406219, guid: 5d0bcb01c6904a44bb27a137922007d6, type: 3}
       propertyPath: m_Name
-      value: Town
+      value: Groundspire Bazaar
       objectReference: {fileID: 0}
     - target: {fileID: 4828187005928406220, guid: 5d0bcb01c6904a44bb27a137922007d6, type: 3}
       propertyPath: m_Pivot.x
@@ -882,35 +874,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 4828187005928406220, guid: 5d0bcb01c6904a44bb27a137922007d6, type: 3}
   m_PrefabInstance: {fileID: 764423333}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &764423344
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 342324866}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8fa4e9aa2955d9047b0f805f19e2c16a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!1 &767055669 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4828187005928406219, guid: 5d0bcb01c6904a44bb27a137922007d6, type: 3}
-  m_PrefabInstance: {fileID: 4828187006191845176}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &767055676
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 767055669}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d45d1c58991d61c4884e85d319f46a35, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &927718483
 GameObject:
   m_ObjectHideFlags: 0
@@ -1105,11 +1068,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1060692956}
   m_CullTransparentMesh: 0
---- !u!1 &1098004383 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4828187005928406219, guid: 5d0bcb01c6904a44bb27a137922007d6, type: 3}
-  m_PrefabInstance: {fileID: 1383530348}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &1225007062 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5527363171066655321, guid: c1d55d04ef57d0a4fa78eb6462186dda, type: 3}
@@ -1295,7 +1253,7 @@ PrefabInstance:
     - target: {fileID: 3048168227795186792, guid: 5d0bcb01c6904a44bb27a137922007d6, type: 3}
       propertyPath: CardSO
       value: 
-      objectReference: {fileID: 11400000, guid: 22e1ad8a4b2067b46b7e5b19d160ab5c, type: 2}
+      objectReference: {fileID: 11400000, guid: 13721240a307e6a44af1a412d22b8002, type: 2}
     - target: {fileID: 3048168227795186792, guid: 5d0bcb01c6904a44bb27a137922007d6, type: 3}
       propertyPath: canvas
       value: 
@@ -1408,18 +1366,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 4828187005928406220, guid: 5d0bcb01c6904a44bb27a137922007d6, type: 3}
   m_PrefabInstance: {fileID: 1383530348}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1383530356
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1098004383}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d45d1c58991d61c4884e85d319f46a35, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1520958184
 GameObject:
   m_ObjectHideFlags: 0
@@ -1451,23 +1397,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1569857181 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4828187005928406219, guid: 5d0bcb01c6904a44bb27a137922007d6, type: 3}
-  m_PrefabInstance: {fileID: 1963631588}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1569857191
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1569857181}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8fa4e9aa2955d9047b0f805f19e2c16a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1720562830
 GameObject:
   m_ObjectHideFlags: 0
@@ -1794,14 +1723,14 @@ PrefabInstance:
     - target: {fileID: 3048168227795186792, guid: 5d0bcb01c6904a44bb27a137922007d6, type: 3}
       propertyPath: CardSO
       value: 
-      objectReference: {fileID: 11400000, guid: 3bc18580e20f2124e819183ac75eb8be, type: 2}
+      objectReference: {fileID: 11400000, guid: ce8070b63d600db429a0ccec6194c114, type: 2}
     - target: {fileID: 3048168227795186792, guid: 5d0bcb01c6904a44bb27a137922007d6, type: 3}
       propertyPath: canvas
       value: 
       objectReference: {fileID: 1931166589}
     - target: {fileID: 4828187005928406219, guid: 5d0bcb01c6904a44bb27a137922007d6, type: 3}
       propertyPath: m_Name
-      value: Luminara Shores
+      value: Mechanical Wastelands
       objectReference: {fileID: 0}
     - target: {fileID: 4828187005928406220, guid: 5d0bcb01c6904a44bb27a137922007d6, type: 3}
       propertyPath: m_Pivot.x
@@ -2088,6 +2017,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1060692957}
     m_Modifications:
+    - target: {fileID: 3048168227795186792, guid: 5d0bcb01c6904a44bb27a137922007d6, type: 3}
+      propertyPath: CardSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 1b7d717dd81648947a5d81c076ba7eff, type: 2}
     - target: {fileID: 3048168227795186792, guid: 5d0bcb01c6904a44bb27a137922007d6, type: 3}
       propertyPath: canvas
       value: 

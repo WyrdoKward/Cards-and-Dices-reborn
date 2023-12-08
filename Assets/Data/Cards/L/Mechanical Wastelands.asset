@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8c4228416b30914aaaf985b167a22d8, type: 3}
+  m_Name: Mechanical Wastelands
+  m_EditorClassIdentifier: 
+  Name: Mechanical Wastelands
+  Description: Scavengers paradise...
+  Lore: A desolate landscape filled with the remnants of a bygone technological era,
+    where scavengers search for lost relics.
+  Artwork: {fileID: 21300000, guid: b9130df5d3b3e244991ea42dc4d6874f, type: 3}
+  IsUnique: 1
