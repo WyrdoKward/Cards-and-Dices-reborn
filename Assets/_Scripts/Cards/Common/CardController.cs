@@ -18,6 +18,7 @@ namespace Assets._Scripts.Cards.Common
         public CardIdleState IdleState = new();
         public CardMovingState MovingState = new();
         public CardFollowingState FollowingState = new();
+        public CardRunningState RunningState = new();
         //public CardPausedState PausedState = new();
 
         public event Action<BaseCardSO> OnStartCard;

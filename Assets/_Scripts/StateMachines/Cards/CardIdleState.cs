@@ -1,5 +1,6 @@
 ﻿using Assets._Scripts.Cards.Common;
 using Assets._Scripts.Utilities;
+using UnityEngine;
 
 namespace Assets._Scripts.StateMachines.Cards
 {
@@ -9,6 +10,8 @@ namespace Assets._Scripts.StateMachines.Cards
         {
             CastContext(uncastController);
             cardGO.transform.localScale = GlobalVariables.CardDefaultScale;
+
+            cardGO.GetComponent<Canvas>().sortingOrder = StackHelper.ComputeOrderInLayer(cardGO);
 
             //if next => switch thenm to follow
             var nextCard = cardController.NextCardInStack;

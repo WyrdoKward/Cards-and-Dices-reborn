@@ -26,6 +26,7 @@ namespace Assets._Scripts.Cards.Common
         private void Update()
         {
             DebugInfo.text = GetComponent<CardController>().currentState.GetType().Name;
+            DebugInfo.text += " - sortinglayer: " + StackHelper.ComputeOrderInLayer(gameObject);
         }
 
         private void LoadCardData(BaseCardSO cardSO)

@@ -93,5 +93,31 @@ namespace Assets._Scripts.Utilities
 
             return StackHelper.GetLastCardOfStack(nextCard);
         }
+
+
+        /// <summary>
+        /// Retourne la carte la plus proche d ela table du stack auquel appartient la carte en paramètre
+        /// </summary>
+        internal static GameObject GetFirstCardOfStack(GameObject card)
+        {
+            var previousCard = card.GetComponent<CardController>().PreviousCardInStack;
+
+            if (previousCard == null)
+                return card;
+
+            return StackHelper.GetFirstCardOfStack(previousCard);
+        }
+
+        internal static int ComputeOrderInLayer(GameObject card)
+        {
+            var previousCard = card.GetComponent<CardController>().PreviousCardInStack;
+            if (previousCard == null)
+                return 0;
+
+
+            var previousSortingOrder = ComputeOrderInLayer(previousCard);
+            return previousSortingOrder + 1;
+
+        }
     }
 }

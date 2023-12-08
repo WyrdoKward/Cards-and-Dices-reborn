@@ -1,4 +1,5 @@
 ﻿using Assets._Scripts.Cards.Common;
+using Assets._Scripts.Cards.Logic;
 using Assets._Scripts.Utilities;
 using UnityEngine;
 
@@ -48,13 +49,25 @@ namespace Assets._Scripts.StateMachines.Cards
             var targetCard = DragAndDropHelper.FindOverlappedCardIfExists(cardGO);
             cardController.SetPreviousCard(targetCard);
 
+            if (targetCard == null)
+            {
+                cardController.SwitchState(cardController.IdleState);
+                return;
+            }
+
             //Snap on target card
             cardController.GetComponent<CardDisplay>().SnapOnCard(targetCard);
+            var firstcardOfStack = StackHelper.GetFirstCardOfStack(cardGO);
 
-            if (targetCard != null)
-                cardController.SwitchState(cardController.FollowingState);
-            else
-                cardController.SwitchState(cardController.IdleState);
+            if (firstcardOfStack != null && firstcardOfStack.GetComponent<CardLogic>().HasReceipe())
+            {
+                firstcardOfStack.GetComponent<CardController>().SwitchState(cardController.RunningState);
+                cardController.SwitchState(cardController.IdleState); //Voir si création d'un lockedState ?
+                return;
+            }
+
+            cardController.SwitchState(cardController.FollowingState);
+
         }
 
         public override void UpdateState(IStateContext uncastController)
