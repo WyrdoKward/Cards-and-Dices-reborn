@@ -16,5 +16,5 @@ MonoBehaviour:
   Description: Scavengers paradise...
   Lore: A desolate landscape filled with the remnants of a bygone technological era,
     where scavengers search for lost relics.
-  Artwork: {fileID: 21300000, guid: b9130df5d3b3e244991ea42dc4d6874f, type: 3}
+  Artwork: {fileID: 21300000, guid: 0891e2bcb3500134daf9aaf83a550b57, type: 3}
   IsUnique: 1

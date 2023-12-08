@@ -488,9 +488,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 452363171}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6aad0dbd9dcf2e459d0a05944939358, type: 3}
+  m_Script: {fileID: 11500000, guid: 28f4d9e5b547fff45be5661c4bc75ee8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CardToWatch: {fileID: 767055669}
+  cardPos: {fileID: 457150892}
+  mousePos: {fileID: 1317204889}
 --- !u!1 &457150890
 GameObject:
   m_ObjectHideFlags: 0
@@ -558,8 +561,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -874,6 +877,11 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 4828187005928406220, guid: 5d0bcb01c6904a44bb27a137922007d6, type: 3}
   m_PrefabInstance: {fileID: 764423333}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &767055669 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4828187005928406219, guid: 5d0bcb01c6904a44bb27a137922007d6, type: 3}
+  m_PrefabInstance: {fileID: 4828187006191845176}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &927718483
 GameObject:
   m_ObjectHideFlags: 0
@@ -1171,8 +1179,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
