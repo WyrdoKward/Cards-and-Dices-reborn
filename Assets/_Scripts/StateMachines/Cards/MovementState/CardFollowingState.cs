@@ -2,9 +2,9 @@
 using Assets._Scripts.Utilities;
 using UnityEngine;
 
-namespace Assets._Scripts.StateMachines.Cards
+namespace Assets._Scripts.StateMachines.Cards.MovementState
 {
-    public class CardFollowingState : CardBaseState
+    public class CardFollowingState : CardBaseMovementState
     {
         public override void Enter(IStateContext uncastController)
         {
@@ -49,7 +49,7 @@ namespace Assets._Scripts.StateMachines.Cards
             var previousCard = cardController.PreviousCardInStack;
             cardController.GetComponent<CardDisplay>().FollowPreviousCard(previousCard);
 
-            if (previousCard.GetComponent<CardController>().currentState is CardIdleState)
+            if (previousCard.GetComponent<CardController>().currentMovementState is CardIdleState)
                 cardController.SwitchState(cardController.IdleState);
         }
     }

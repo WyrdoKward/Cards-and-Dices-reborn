@@ -2,9 +2,9 @@
 using Assets._Scripts.Utilities;
 using UnityEngine;
 
-namespace Assets._Scripts.StateMachines.Cards
+namespace Assets._Scripts.StateMachines.Cards.MovementState
 {
-    public class CardIdleState : CardBaseState
+    public class CardIdleState : CardBaseMovementState
     {
         public override void Enter(IStateContext uncastController)
         {

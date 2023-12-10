@@ -25,7 +25,7 @@ namespace Assets._Scripts.Cards.Common
 
         private void Update()
         {
-            DebugInfo.text = GetComponent<CardController>().currentState.GetType().Name;
+            DebugInfo.text = GetComponent<CardController>().currentMovementState.GetType().Name + " / " + GetComponent<CardController>().currentTimerState.GetType().Name;
             DebugInfo.text += " - sortinglayer: " + StackHelper.ComputeOrderInLayer(gameObject);
         }
 

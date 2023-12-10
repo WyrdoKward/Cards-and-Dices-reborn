@@ -2,9 +2,9 @@
 using Assets._Scripts.Utilities;
 using UnityEngine;
 
-namespace Assets._Scripts.StateMachines.Cards
+namespace Assets._Scripts.StateMachines.Cards.TimerState
 {
-    public class CardRunningState : CardBaseState
+    public class CardRunningState : CardBaseTimerState
     {
         public override void Enter(IStateContext uncastController)
         {

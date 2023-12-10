@@ -3,9 +3,9 @@ using Assets._Scripts.Cards.Logic;
 using Assets._Scripts.Utilities;
 using UnityEngine;
 
-namespace Assets._Scripts.StateMachines.Cards
+namespace Assets._Scripts.StateMachines.Cards.MovementState
 {
-    public class CardMovingState : CardBaseState
+    public class CardMovingState : CardBaseMovementState
     {
         private RectTransform _rectTransform;
         public override void Enter(IStateContext uncastController)
