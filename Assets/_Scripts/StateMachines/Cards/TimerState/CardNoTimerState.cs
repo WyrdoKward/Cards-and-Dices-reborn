@@ -10,14 +10,6 @@
         {
         }
 
-        public override void OnMouseDrag(IStateContext uncastController)
-        {
-        }
-
-        public override void OnMouseUp(IStateContext uncastController)
-        {
-        }
-
         public override void UpdateState(IStateContext uncastController)
         {
         }

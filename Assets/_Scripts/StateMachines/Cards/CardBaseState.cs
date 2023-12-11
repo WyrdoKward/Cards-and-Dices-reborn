@@ -14,8 +14,6 @@ namespace Assets._Scripts.StateMachines
         protected CardController cardController;
         protected GameObject cardGO;
 
-        public abstract void OnMouseDrag(IStateContext uncastController);
-        public abstract void OnMouseUp(IStateContext uncastController);
 
         protected void CastContext(IStateContext uncastContext)
         {

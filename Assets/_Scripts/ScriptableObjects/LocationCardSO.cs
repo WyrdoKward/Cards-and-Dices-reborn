@@ -7,6 +7,7 @@ namespace Assets._Scripts.ScriptableObjects
     [CreateAssetMenu(fileName = "New Location", menuName = "Card/Location")]
     internal class LocationCardSO : BaseCardSO
     {
+        public float ExplorationTime;
 
         public override void InitializedCardWithScriptableObject(GameObject cardBodyGO)
         {
