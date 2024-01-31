@@ -1,4 +1,5 @@
 ﻿using Assets._Scripts.Cards.Logic;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets._Scripts.ScriptableObjects
@@ -8,6 +9,7 @@ namespace Assets._Scripts.ScriptableObjects
     internal class LocationCardSO : BaseCardSO
     {
         public float ExplorationTime;
+        public List<BaseCardSO> Loot;
 
         public override void InitializedCardWithScriptableObject(GameObject cardBodyGO)
         {

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets._Scripts.Managers;
+using System;
 using UnityEngine;
 
 namespace Assets._Scripts.Systems.Timer
@@ -8,6 +9,7 @@ namespace Assets._Scripts.Systems.Timer
     /// </summary>
     internal class CardTimer
     {
+        private readonly TimeManager TimeManager;
         /// <summary>
         /// False pour les threats etc, true pour les cartes qui doivent conserver leurs ingrédients toute la durée
         /// </summary>
@@ -17,11 +19,23 @@ namespace Assets._Scripts.Systems.Timer
         private float remainingTime;
 
 
-        public CardTimer(Action action, float delay, bool stopIfIngredientsRemoved = true)
+
+        public CardTimer(GameObject card, Action action, float delay, bool stopIfIngredientsRemoved = true)
         {
             this.action = action;
             this.remainingTime = delay;
             StopIfIngredientsRemoved = stopIfIngredientsRemoved;
+
+            TimeManager = GameObject.Find("TimeManager").GetComponent<TimeManager>();
+            TimeManager.DisplayTimerSlider(delay, card, Color.magenta);
+        }
+
+        /// <summary>
+        /// Destoy the timer and the slider associated
+        /// </summary>
+        public void Destroy()
+        {
+
         }
 
         /// <summary>
@@ -38,5 +52,6 @@ namespace Assets._Scripts.Systems.Timer
             }
             return false;
         }
+
     }
 }

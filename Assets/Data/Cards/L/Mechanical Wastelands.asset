@@ -18,3 +18,5 @@ MonoBehaviour:
     where scavengers search for lost relics.
   Artwork: {fileID: 21300000, guid: 0891e2bcb3500134daf9aaf83a550b57, type: 3}
   IsUnique: 1
+  ExplorationTime: 3
+  Loot: []

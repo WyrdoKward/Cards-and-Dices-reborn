@@ -13,7 +13,7 @@ namespace Assets._Scripts.Cards.Logic
             return true;
         }
 
-        internal virtual void LaunchActionWthTimer()
+        internal virtual void FireActionForEndTimer()
         {
         }
     }

@@ -15,18 +15,17 @@ namespace Assets._Scripts.StateMachines.Cards.TimerState
             CastContext(uncastController);
             cardGO.GetComponent<Canvas>().sortingOrder = StackHelper.ComputeOrderInLayer(cardGO);
 
-            Action action = cardGO.GetComponent<CardLogic>().LaunchActionWthTimer;
+            Action action = cardGO.GetComponent<CardLogic>().FireActionForEndTimer;
             //var delay = cardController.CardSO.
-            var delay = 3f;
-            timer = new CardTimer(action, delay);
-
-            LaunchActionWithTimer();
+            var delay = 10f;
+            timer = new CardTimer(cardController.gameObject, action, delay);
         }
 
         public override void Exit(IStateContext uncastController)
         {
             CastContext(uncastController);
             //Destruction du timer
+            timer.Destroy();
 
             //Disperser les cartes
 
@@ -37,11 +36,8 @@ namespace Assets._Scripts.StateMachines.Cards.TimerState
         {
             CastContext(uncastController);
             var isTimerOver = timer.Update();
-        }
-
-        private void LaunchActionWithTimer()
-        {
-            cardGO.GetComponent<CardLogic>().LaunchActionWthTimer();
+            if (isTimerOver)
+                cardController.SwitchState(cardController.NoTimerState);
         }
     }
 }

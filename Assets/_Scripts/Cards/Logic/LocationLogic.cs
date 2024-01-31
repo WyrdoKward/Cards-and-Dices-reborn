@@ -16,9 +16,9 @@ namespace Assets._Scripts.Cards.Logic
         }
 
 
-        internal override void LaunchActionWthTimer()
+        internal override void FireActionForEndTimer()
         {
-            base.LaunchActionWthTimer();
+            base.FireActionForEndTimer();
             Explore();
         }
     }
