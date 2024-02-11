@@ -27,6 +27,8 @@ namespace Assets._Scripts.Cards.Common
         {
             DebugInfo.text = GetComponent<CardController>().currentMovementState.GetType().Name + " / " + GetComponent<CardController>().currentTimerState.GetType().Name;
             DebugInfo.text += " - sortinglayer: " + StackHelper.ComputeOrderInLayer(gameObject);
+            DebugInfo.text += " Last position : " + GetComponent<CardController>().LastPosition;
+
         }
 
         private void LoadCardData(BaseCardSO cardSO)

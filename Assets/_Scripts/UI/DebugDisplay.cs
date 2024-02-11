@@ -19,8 +19,9 @@ public class DebugDisplay : MonoBehaviour
     {
         //cardPos.text = CardToWatch.transform.position.ToString();
         // les 2 suivants sont dans le emme référentiel ok
-        var transformPos = Camera.main.WorldToScreenPoint(CardToWatch.transform.position);
-        cardPos.text = transformPos.ToString();
+        //var transformPos = Camera.main.WorldToScreenPoint(CardToWatch.transform.position);
+
+        cardPos.text = CardToWatch.GetComponent<RectTransform>().position.z.ToString();
         var mouse = InputHelper.GetCursorPositionInWorld((RectTransform)CardToWatch.transform);
         //mouse.z = Camera.main.transform.position.z;
         ////

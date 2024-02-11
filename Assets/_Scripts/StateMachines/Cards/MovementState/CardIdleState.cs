@@ -11,6 +11,8 @@ namespace Assets._Scripts.StateMachines.Cards.MovementState
             CastContext(uncastController);
             cardGO.transform.localScale = GlobalVariables.CardDefaultScale;
 
+            _rectTransform = cardController.GetComponent<RectTransform>();
+
             cardGO.GetComponent<Canvas>().sortingOrder = StackHelper.ComputeOrderInLayer(cardGO);
 
             //if next => switch thenm to follow
@@ -25,6 +27,7 @@ namespace Assets._Scripts.StateMachines.Cards.MovementState
         public override void Exit(IStateContext uncastController)
         {
             CastContext(uncastController);
+            cardController.LastPosition = _rectTransform.position;
         }
 
         public override void OnMouseDrag(IStateContext uncastController)

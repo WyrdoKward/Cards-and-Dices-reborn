@@ -1,4 +1,5 @@
-﻿using Assets._Scripts.Cards.Logic;
+﻿using Assets._Scripts.Cards.Common;
+using Assets._Scripts.Cards.Logic;
 using Assets._Scripts.Systems.Timer;
 using Assets._Scripts.Utilities;
 using System;
@@ -28,7 +29,19 @@ namespace Assets._Scripts.StateMachines.Cards.TimerState
             timer.Destroy();
 
             //Disperser les cartes
+            var cardsToDisperse = StackHelper.GetCardsAboveInStack(cardGO);
+            cardController.UnlinkNextCard();
+            foreach (var card in cardsToDisperse)
+            {
+                var controller = card.GetComponent<CardController>();
+                var targetPosition = new Vector2(controller.LastPosition.x, controller.LastPosition.y);
 
+
+                controller.UnlinkPreviousCard();
+                controller.SwitchState(controller.MovingState);
+                controller.currentMovementState.TargetPosition = targetPosition;
+                Debug.Log($"Sending {card} from {card.transform.position} to {controller.LastPosition}");
+            }
 
         }
 

@@ -26,7 +26,7 @@ namespace Assets._Scripts.Managers
 
 
             spawnedTimer.transform.localScale = new Vector3(1, 1, 1);
-            spawnedTimer.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
+            spawnedTimer.GetComponent<RectTransform>().anchoredPosition = timerPosition;
             spawnedTimer.GetComponent<RectTransform>().anchorMin = new Vector2(0, 1);
             spawnedTimer.GetComponent<RectTransform>().anchorMax = new Vector2(0, 1);
             spawnedTimer.GetComponent<RectTransform>().pivot = new Vector2(0, 1);

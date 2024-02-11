@@ -7,12 +7,14 @@ namespace Assets._Scripts.StateMachines.Cards.MovementState
 {
     public class CardMovingState : CardBaseMovementState
     {
-        private RectTransform _rectTransform;
+        public bool MovingByMouse = false;
         public override void Enter(IStateContext uncastController)
         {
             CastContext(uncastController);
 
             _rectTransform = cardController.GetComponent<RectTransform>();
+            cardController.LastPosition = _rectTransform.position;
+
             Cursor.visible = false;
             cardController.transform.localScale = GlobalVariables.CardBiggerScale;
             cardController.GetComponent<Canvas>().sortingOrder = GlobalVariables.OnDragCardSortingLayer;
@@ -29,7 +31,7 @@ namespace Assets._Scripts.StateMachines.Cards.MovementState
         public override void Exit(IStateContext uncastController)
         {
             CastContext(uncastController);
-
+            MovingByMouse = false;
             Cursor.visible = true;
             cardController.transform.localScale = GlobalVariables.CardDefaultScale;
             cardController.GetComponent<Canvas>().sortingOrder = GlobalVariables.DefaultCardSortingLayer;
@@ -38,9 +40,7 @@ namespace Assets._Scripts.StateMachines.Cards.MovementState
         public override void OnMouseDrag(IStateContext uncastController)
         {
             CastContext(uncastController);
-            var targetPosition = InputHelper.GetCursorPositionInWorld(_rectTransform);
-
-            _rectTransform.position = Vector3.Lerp(_rectTransform.position, targetPosition, Time.deltaTime * GlobalVariables.LerpSpeed);
+            TargetPosition = InputHelper.GetCursorPositionInWorld(_rectTransform);
         }
 
         public override void OnMouseUp(IStateContext uncastController)
@@ -72,8 +72,13 @@ namespace Assets._Scripts.StateMachines.Cards.MovementState
 
         public override void UpdateState(IStateContext uncastController)
         {
-            //CastContext(uncastController);
+            CastContext(uncastController);
+            _rectTransform.position = Vector2.Lerp(_rectTransform.position, TargetPosition, Time.deltaTime * GlobalVariables.LerpSpeed);
 
+            if (MovingByMouse && (Vector2)_rectTransform.position == TargetPosition)
+            {
+                cardController.SwitchState(cardController.IdleState);
+            }
         }
     }
 }

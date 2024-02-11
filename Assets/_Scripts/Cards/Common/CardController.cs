@@ -30,11 +30,14 @@ namespace Assets._Scripts.Cards.Common
         public GameObject PreviousCardInStack;
         public GameObject NextCardInStack;
 
+        public Vector2 LastPosition;
+
 
         private void Awake()
         {
             GameObject.Find("CardManager").GetComponent<CardManager>().RegisterCardToGlobalList(gameObject);
             CardSO.InitializedCardWithScriptableObject(gameObject);
+            LastPosition = GetComponent<RectTransform>().position;
         }
 
         void Start()
@@ -146,6 +149,7 @@ namespace Assets._Scripts.Cards.Common
         private void OnMouseDrag()
         {
             // TODO Conditionner le départ du drag à un minimum de mvt de la souris depuis la pos initiale pour pouvoir cliquer et afficher qqch sans que ca soit considéré comme du drag
+            MovingState.MovingByMouse = true;
             currentMovementState.OnMouseDrag(this);
         }
 
