@@ -1,5 +1,6 @@
 ﻿using Assets._Scripts.Cards.Common;
 using Assets._Scripts.Cards.Logic;
+using Assets._Scripts.StateMachines.Cards.TimerState;
 using UnityEngine;
 
 /// <summary>
@@ -49,5 +50,13 @@ public static class StatMachineGOExtension
         controller.SwitchState(controller.RunningState);
 
         return true;
+    }
+
+    public static bool IsAlreadyRunning(this GameObject gameObject)
+    {
+        var controller = gameObject.GetComponent<CardController>();
+        if (controller.currentTimerState is CardRunningState)
+            return true;
+        return false;
     }
 }

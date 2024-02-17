@@ -54,9 +54,9 @@ namespace Assets._Scripts.StateMachines.Cards.MovementState
             //Snap UI on target card
             cardController.GetComponent<CardDisplay>().SnapOnCard(targetCard);
 
-            // SI il y a une recette, on la lance
+            // Si il y a une recette, on la lance
             var firstcardOfStack = StackHelper.GetFirstCardOfStack(cardGO);
-            if (firstcardOfStack.RunIfRecipe())
+            if (!firstcardOfStack.IsAlreadyRunning() && firstcardOfStack.RunIfRecipe())
             {
                 cardController.SwitchState(cardController.IdleState); //Voir si création d'un lockedState/ingredientState ?
                 return;

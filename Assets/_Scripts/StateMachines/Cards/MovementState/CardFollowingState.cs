@@ -22,14 +22,11 @@ namespace Assets._Scripts.StateMachines.Cards.MovementState
         public override void Exit(IStateContext uncastController)
         {
             CastContext(uncastController);
-            cardController.GetComponent<CardDisplay>().FollowPreviousCard(cardController.PreviousCardInStack);
-
         }
 
         public override void OnMouseDrag(IStateContext uncastController)
         {
             CastContext(uncastController);
-
         }
 
         public override void OnMouseUp(IStateContext uncastController)
@@ -42,6 +39,13 @@ namespace Assets._Scripts.StateMachines.Cards.MovementState
             CastContext(uncastController);
 
             var previousCard = cardController.PreviousCardInStack;
+
+            if (previousCard == null)
+            {
+                cardController.SwitchState(cardController.IdleState);
+                return;
+            }
+
             cardController.GetComponent<CardDisplay>().FollowPreviousCard(previousCard);
 
             if (previousCard.GetComponent<CardController>().currentMovementState is CardIdleState)

@@ -1,5 +1,6 @@
-﻿using Assets._Scripts.Cards.Common;
+﻿using Assets._Scripts.Utilities;
 using System;
+using System.Linq;
 using UnityEngine;
 
 namespace Assets._Scripts.Cards.Logic
@@ -10,15 +11,17 @@ namespace Assets._Scripts.Cards.Logic
         {
             if (!base.VerifyReceipe()) return null;
 
-            if (GetComponent<CardController>().NextCardInStack.GetComponent<CardLogic>() is FollowerLogic)
+            if (StackHelper.GetCardsAboveInStack(gameObject).All(c => c.GetComponent<CardLogic>() is FollowerLogic))
                 return Explore;
+
 
             return null;
         }
 
         private void Explore()
         {
-            Debug.Log($"Exploring {gameObject}...");
+            var followers = StackHelper.GetCardsAboveInStack(gameObject);
+            Debug.Log($"{followers.Count} F are exploring {gameObject}...");
         }
     }
 }
