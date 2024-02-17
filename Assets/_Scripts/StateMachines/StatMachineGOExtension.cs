@@ -31,15 +31,21 @@ public static class StatMachineGOExtension
         controller.UnlinkPreviousCard();
         controller.SwitchState(controller.MovingState);
         controller.currentMovementState.TargetPosition = targetPosition;
-        Debug.Log($"Sending {gameObject} from {gameObject.transform.position} to {controller.LastPosition}");
+        //Debug.Log($"Sending {gameObject} from {gameObject.transform.position} to {controller.LastPosition}");
     }
 
     public static bool RunIfRecipe(this GameObject gameObject)
     {
-        if (!gameObject.GetComponent<CardLogic>().HasReceipe())
-            return false;
-
         var controller = gameObject.GetComponent<CardController>();
+        var action = gameObject.GetComponent<CardLogic>().GetReceipe();
+
+        if (action == null)
+        {
+            controller.RunningState.EndTimerAction = null;
+            return false;
+        }
+
+        controller.RunningState.EndTimerAction = action;
         controller.SwitchState(controller.RunningState);
 
         return true;

@@ -1,11 +1,14 @@
-﻿namespace Assets._Scripts.Cards.Logic
+﻿using System;
+
+namespace Assets._Scripts.Cards.Logic
 {
     internal class FollowerLogic : CardLogic
     {
-        internal override bool HasReceipe()
+        internal override Action GetReceipe()
         {
-            var res = base.HasReceipe();
-            return false;
+            if (!base.VerifyReceipe()) return null;
+
+            return null;
         }
     }
 }

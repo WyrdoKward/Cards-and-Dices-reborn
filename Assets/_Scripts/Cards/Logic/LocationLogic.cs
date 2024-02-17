@@ -1,25 +1,24 @@
-﻿using UnityEngine;
+﻿using Assets._Scripts.Cards.Common;
+using System;
+using UnityEngine;
 
 namespace Assets._Scripts.Cards.Logic
 {
     internal class LocationLogic : CardLogic
     {
-        internal override bool HasReceipe()
+        internal override Action GetReceipe()
         {
-            var res = base.HasReceipe();
-            return res;
+            if (!base.VerifyReceipe()) return null;
+
+            if (GetComponent<CardController>().NextCardInStack.GetComponent<CardLogic>() is FollowerLogic)
+                return Explore;
+
+            return null;
         }
 
-        public void Explore()
+        private void Explore()
         {
             Debug.Log($"Exploring {gameObject}...");
-        }
-
-
-        internal override void FireActionForEndTimer()
-        {
-            base.FireActionForEndTimer();
-            Explore();
         }
     }
 }

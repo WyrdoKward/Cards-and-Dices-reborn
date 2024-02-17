@@ -8,7 +8,10 @@ namespace Assets._Scripts.StateMachines.Cards.TimerState
 {
     public class CardRunningState : CardBaseTimerState
     {
+        public Action EndTimerAction;
         private CardTimer timer;
+
+
 
         public override void Enter(IStateContext uncastController)
         {
@@ -16,16 +19,19 @@ namespace Assets._Scripts.StateMachines.Cards.TimerState
             Debug.Log($"{cardGO} running...");
             cardGO.GetComponent<Canvas>().sortingOrder = StackHelper.ComputeOrderInLayer(cardGO);
 
-            Action action = cardGO.GetComponent<CardLogic>().FireActionForEndTimer;
             //var delay = cardController.CardSO.
+            if (EndTimerAction == null)
+                Debug.LogError($"EndTimerAction null pour {cardGO} !");
+
             var delay = 10f;
-            timer = new CardTimer(cardGO, action, delay);
+            timer = new CardTimer(cardGO, EndTimerAction, delay);
         }
 
         public override void Exit(IStateContext uncastController)
         {
             CastContext(uncastController);
-            Debug.Log($"{cardGO} Exit running");
+            Debug.Log($"{cardGO} exit running");
+            EndTimerAction = null;
             timer.Destroy(cardGO);
             DisperseCards();
         }
@@ -39,7 +45,7 @@ namespace Assets._Scripts.StateMachines.Cards.TimerState
                 cardController.SwitchState(cardController.NoTimerState);
             }
 
-            if (!cardController.GetComponent<CardLogic>().HasReceipe())
+            if (cardController.GetComponent<CardLogic>().GetReceipe() == null)
                 cardController.SwitchState(cardController.NoTimerState);
 
         }
