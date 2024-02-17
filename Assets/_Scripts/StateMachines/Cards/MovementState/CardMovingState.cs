@@ -26,16 +26,6 @@ namespace Assets._Scripts.StateMachines.Cards.MovementState
         {
             CastContext(uncastController);
 
-            //var firstCardOfStack = StackHelper.GetFirstCardOfStack(cardGO);
-            //if (firstCardOfStack != null)
-            //{
-            //    var firstController = firstCardOfStack.GetComponent<CardController>();
-            //    if (firstController.currentTimerState is CardRunningState)
-            //    {
-            //        firstController.SwitchState(firstController.NoTimerState);
-            //    }
-            //}
-
             MovingByMouse = false;
             Cursor.visible = true;
             cardController.transform.localScale = GlobalVariables.CardDefaultScale;
@@ -61,9 +51,10 @@ namespace Assets._Scripts.StateMachines.Cards.MovementState
                 return;
             }
 
-            //Snap on target card
+            //Snap UI on target card
             cardController.GetComponent<CardDisplay>().SnapOnCard(targetCard);
 
+            // SI il y a une recette, on la lance
             var firstcardOfStack = StackHelper.GetFirstCardOfStack(cardGO);
             if (firstcardOfStack.RunIfRecipe())
             {
@@ -71,8 +62,7 @@ namespace Assets._Scripts.StateMachines.Cards.MovementState
                 return;
             }
 
-            //cardController.SwitchState(cardController.FollowingState);
-
+            cardController.SwitchState(cardController.FollowingState);
         }
 
         public override void UpdateState(IStateContext uncastController)
@@ -80,7 +70,10 @@ namespace Assets._Scripts.StateMachines.Cards.MovementState
             CastContext(uncastController);
             _rectTransform.position = Vector2.Lerp(_rectTransform.position, TargetPosition, Time.deltaTime * GlobalVariables.LerpSpeed);
 
-            if (MovingByMouse && (Vector2)_rectTransform.position == TargetPosition)
+            if (MovingByMouse) return;
+
+            // Si il est en "pilote auto" (Diperse par ex.), passe en idle si la cible est atteinte
+            if ((Vector2)_rectTransform.position == TargetPosition)
             {
                 cardController.SwitchState(cardController.IdleState);
             }
