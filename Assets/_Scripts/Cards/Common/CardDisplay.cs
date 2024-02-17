@@ -26,8 +26,8 @@ namespace Assets._Scripts.Cards.Common
         private void Update()
         {
             DebugInfo.text = GetComponent<CardController>().currentMovementState.GetType().Name + " / " + GetComponent<CardController>().currentTimerState.GetType().Name;
-            DebugInfo.text += " - sortinglayer: " + StackHelper.ComputeOrderInLayer(gameObject);
-            DebugInfo.text += " Last position : " + GetComponent<CardController>().LastPosition;
+            DebugInfo.text += " - Sortinglayer: " + StackHelper.ComputeOrderInLayer(gameObject);
+            //DebugInfo.text += " Last position : " + GetComponent<CardController>().LastPosition;
 
         }
 

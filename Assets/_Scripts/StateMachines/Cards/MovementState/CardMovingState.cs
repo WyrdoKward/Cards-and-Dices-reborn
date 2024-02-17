@@ -1,5 +1,4 @@
 ﻿using Assets._Scripts.Cards.Common;
-using Assets._Scripts.Cards.Logic;
 using Assets._Scripts.Utilities;
 using UnityEngine;
 
@@ -19,18 +18,24 @@ namespace Assets._Scripts.StateMachines.Cards.MovementState
             cardController.transform.localScale = GlobalVariables.CardBiggerScale;
             cardController.GetComponent<Canvas>().sortingOrder = GlobalVariables.OnDragCardSortingLayer;
 
-            //if next => switch thenm to follow
-            var nextCard = cardController.NextCardInStack;
-            if (nextCard != null)
-            {
-                var nextController = nextCard.GetComponent<CardController>();
-                nextController.SwitchState(nextController.FollowingState);
-            }
+            //if next => switch them to follow
+            cardController.NextCardInStack?.Follow();
         }
 
         public override void Exit(IStateContext uncastController)
         {
             CastContext(uncastController);
+
+            //var firstCardOfStack = StackHelper.GetFirstCardOfStack(cardGO);
+            //if (firstCardOfStack != null)
+            //{
+            //    var firstController = firstCardOfStack.GetComponent<CardController>();
+            //    if (firstController.currentTimerState is CardRunningState)
+            //    {
+            //        firstController.SwitchState(firstController.NoTimerState);
+            //    }
+            //}
+
             MovingByMouse = false;
             Cursor.visible = true;
             cardController.transform.localScale = GlobalVariables.CardDefaultScale;
@@ -41,6 +46,7 @@ namespace Assets._Scripts.StateMachines.Cards.MovementState
         {
             CastContext(uncastController);
             TargetPosition = InputHelper.GetCursorPositionInWorld(_rectTransform);
+            //Debug.Log($"Dragging {cardGO}");
         }
 
         public override void OnMouseUp(IStateContext uncastController)
@@ -57,16 +63,15 @@ namespace Assets._Scripts.StateMachines.Cards.MovementState
 
             //Snap on target card
             cardController.GetComponent<CardDisplay>().SnapOnCard(targetCard);
-            var firstcardOfStack = StackHelper.GetFirstCardOfStack(cardGO);
 
-            if (firstcardOfStack != null && firstcardOfStack.GetComponent<CardLogic>().HasReceipe())
+            var firstcardOfStack = StackHelper.GetFirstCardOfStack(cardGO);
+            if (firstcardOfStack.RunIfRecipe())
             {
-                firstcardOfStack.GetComponent<CardController>().SwitchState(cardController.RunningState);
-                cardController.SwitchState(cardController.IdleState); //Voir si création d'un lockedState ?
+                cardController.SwitchState(cardController.IdleState); //Voir si création d'un lockedState/ingredientState ?
                 return;
             }
 
-            cardController.SwitchState(cardController.FollowingState);
+            //cardController.SwitchState(cardController.FollowingState);
 
         }
 

@@ -78,7 +78,7 @@ namespace Assets._Scripts.Systems.Timer
             return _currentLerpTime / GlobalVariables.DefaultLerpingValue;
         }
 
-        private void DestroySelf()
+        public void DestroySelf()
         {
             Destroy(gameObject);
         }

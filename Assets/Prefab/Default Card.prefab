@@ -304,6 +304,7 @@ MonoBehaviour:
   CardSO: {fileID: 0}
   PreviousCardInStack: {fileID: 0}
   NextCardInStack: {fileID: 0}
+  LastPosition: {x: 0, y: 0}
 --- !u!114 &4411464130758529606
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -608,8 +609,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4280032492
-  m_fontColor: {r: 0.9245283, g: 0.10902455, b: 0.10902455, a: 1}
+    rgba: 4278255886
+  m_fontColor: {r: 0.05660379, g: 0.0034709887, b: 0.0034709887, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -662,7 +663,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: -89.89685, w: -111.822815}
+  m_margin: {x: 0, y: 0, z: -376.8827, w: -111.822815}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0

@@ -37,5 +37,15 @@ namespace Assets._Scripts.Managers
             fill.GetComponent<RectTransform>().anchorMin = new Vector2(0, 1);
             fill.GetComponent<RectTransform>().anchorMax = new Vector2(0, 1);
         }
+
+        /// <summary>
+        /// Détruit l'objet TimerSlider associé à gameObject
+        /// </summary>
+        /// <param name="gameObject"></param>
+        public void DestroyTimerSlider(GameObject gameObject)
+        {
+            var timerToDestroy = gameObject.GetComponentInChildren<TimerSliderBehaviour>();
+            timerToDestroy.DestroySelf();
+        }
     }
 }

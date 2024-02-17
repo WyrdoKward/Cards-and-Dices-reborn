@@ -5,7 +5,7 @@
         internal override bool HasReceipe()
         {
             var res = base.HasReceipe();
-            return res;
+            return false;
         }
     }
 }

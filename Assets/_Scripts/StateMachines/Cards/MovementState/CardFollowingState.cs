@@ -15,13 +15,8 @@ namespace Assets._Scripts.StateMachines.Cards.MovementState
             cardGO.transform.localScale = GlobalVariables.CardBiggerScale;
             cardController.GetComponent<CardDisplay>().FollowPreviousCard(cardController.PreviousCardInStack);
 
-            //Embnarquer la suivante
-            var nextCard = cardController.NextCardInStack;
-            if (nextCard != null)
-            {
-                var nextController = nextCard.GetComponent<CardController>();
-                nextController.SwitchState(nextController.FollowingState);
-            }
+            //Embarquer la suivante
+            cardController.NextCardInStack?.Follow();
         }
 
         public override void Exit(IStateContext uncastController)

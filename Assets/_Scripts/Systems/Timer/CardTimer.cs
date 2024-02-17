@@ -33,9 +33,9 @@ namespace Assets._Scripts.Systems.Timer
         /// <summary>
         /// Destoy the timer and the slider associated
         /// </summary>
-        public void Destroy()
+        public void Destroy(GameObject gameObject)
         {
-
+            TimeManager.DestroyTimerSlider(gameObject);
         }
 
         /// <summary>

@@ -1,5 +1,4 @@
-﻿using Assets._Scripts.Cards.Common;
-using Assets._Scripts.Utilities;
+﻿using Assets._Scripts.Utilities;
 using UnityEngine;
 
 namespace Assets._Scripts.StateMachines.Cards.MovementState
@@ -15,13 +14,8 @@ namespace Assets._Scripts.StateMachines.Cards.MovementState
 
             cardGO.GetComponent<Canvas>().sortingOrder = StackHelper.ComputeOrderInLayer(cardGO);
 
-            //if next => switch thenm to follow
-            var nextCard = cardController.NextCardInStack;
-            if (nextCard != null)
-            {
-                var nextController = nextCard.GetComponent<CardController>();
-                nextController.SwitchState(nextController.IdleState);
-            }
+            //if next => switch them to idle as well
+            cardController.NextCardInStack?.Idle();
         }
 
         public override void Exit(IStateContext uncastController)
@@ -33,15 +27,7 @@ namespace Assets._Scripts.StateMachines.Cards.MovementState
         public override void OnMouseDrag(IStateContext uncastController)
         {
             CastContext(uncastController);
-            //TODO Ajouter contrôle de mvt minimum
             cardController.SwitchState(cardController.MovingState);
-            //// Passer toutes les autres cartes au dessus dans le stack en following
-            ///// Useless, c'est fait dans moving.Enter
-            //foreach (var card in StackHelper.GetCardsAboveInStack(cardGO))
-            //{
-            //    var nextController = card.GetComponent<CardController>();
-            //    nextController.SwitchState(nextController.FollowingState);
-            //}
         }
 
         public override void OnMouseUp(IStateContext uncastController)
