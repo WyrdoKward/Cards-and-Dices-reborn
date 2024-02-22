@@ -1,7 +1,8 @@
 ﻿using Assets._Scripts.Managers;
 using Assets._Scripts.ScriptableObjects;
 using Assets._Scripts.StateMachines;
-using Assets._Scripts.StateMachines.Cards;
+using Assets._Scripts.StateMachines.Cards.MovementState;
+using Assets._Scripts.StateMachines.Cards.TimerState;
 using System;
 using UnityEngine;
 
@@ -14,42 +15,69 @@ namespace Assets._Scripts.Cards.Common
         public BaseCardSO CardSO;
 
         // State Machine
-        public CardBaseState currentState;
+        public CardBaseMovementState currentMovementState;
         public CardIdleState IdleState = new();
         public CardMovingState MovingState = new();
         public CardFollowingState FollowingState = new();
-        //public CardPausedState PausedState = new();
+
+        public CardBaseTimerState currentTimerState;
+        public CardRunningState RunningState = new();
+        public CardNoTimerState NoTimerState = new();
+        public CardIngredientState IngredientState = new();
 
         public event Action<BaseCardSO> OnStartCard;
 
         public GameObject PreviousCardInStack;
         public GameObject NextCardInStack;
 
+        public Vector2 LastPosition;
+
 
         private void Awake()
         {
             GameObject.Find("CardManager").GetComponent<CardManager>().RegisterCardToGlobalList(gameObject);
+            CardSO.InitializedCardWithScriptableObject(gameObject);
+            LastPosition = GetComponent<RectTransform>().position;
         }
 
         void Start()
         {
             OnStartCard?.Invoke(CardSO);
 
-            currentState = IdleState;
-            currentState.Enter(this);
+            currentMovementState = IdleState;
+            currentMovementState.Enter(this);
+
+            currentTimerState = NoTimerState;
+            currentTimerState.Enter(this);
         }
 
 
         void Update()
         {
-            currentState.UpdateState(this);
+            currentMovementState.UpdateState(this);
+            currentTimerState.UpdateState(this);
         }
 
         public void SwitchState(IState newState)
         {
-            currentState.Exit(this);
-            currentState = (CardBaseState)newState;
-            currentState.Enter(this);
+            if (newState is CardBaseMovementState movementState)
+            {
+                currentMovementState.Exit(this);
+                currentMovementState = movementState;
+                currentMovementState.Enter(this);
+                return;
+            }
+
+            if (newState is CardBaseTimerState timerState)
+            {
+                currentTimerState.Exit(this);
+                currentTimerState = timerState;
+                currentTimerState.Enter(this);
+                return;
+            }
+
+            Debug.LogError($"{newState} is not a valid state");
+
         }
 
         #region LinkCards
@@ -96,7 +124,7 @@ namespace Assets._Scripts.Cards.Common
 
 
             PreviousCardInStack = previous;
-            PreviousCardInStack.GetComponent<CardDisplay>().ReduceCollider(); //déplacer cette logique dans une partie UI dédiée
+            PreviousCardInStack.GetComponent<CardDisplay>().ReduceCollider();
             previous.GetComponent<CardController>().NextCardInStack = gameObject;
 
         }
@@ -121,14 +149,15 @@ namespace Assets._Scripts.Cards.Common
         private void OnMouseDrag()
         {
             // TODO Conditionner le départ du drag à un minimum de mvt de la souris depuis la pos initiale pour pouvoir cliquer et afficher qqch sans que ca soit considéré comme du drag
-            currentState.OnMouseDrag(this);
+            MovingState.MovingByMouse = true;
+            currentMovementState.OnMouseDrag(this);
         }
 
 
         //quand on relache la carte
         private void OnMouseUp()
         {
-            currentState.OnMouseUp(this);
+            currentMovementState.OnMouseUp(this);
         }
         #endregion
     }

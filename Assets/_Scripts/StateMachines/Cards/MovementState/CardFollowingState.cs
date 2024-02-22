@@ -2,9 +2,9 @@
 using Assets._Scripts.Utilities;
 using UnityEngine;
 
-namespace Assets._Scripts.StateMachines.Cards
+namespace Assets._Scripts.StateMachines.Cards.MovementState
 {
-    public class CardFollowingState : CardBaseState
+    public class CardFollowingState : CardBaseMovementState
     {
         public override void Enter(IStateContext uncastController)
         {
@@ -15,26 +15,18 @@ namespace Assets._Scripts.StateMachines.Cards
             cardGO.transform.localScale = GlobalVariables.CardBiggerScale;
             cardController.GetComponent<CardDisplay>().FollowPreviousCard(cardController.PreviousCardInStack);
 
-            //Embnarquer la suivante
-            var nextCard = cardController.NextCardInStack;
-            if (nextCard != null)
-            {
-                var nextController = nextCard.GetComponent<CardController>();
-                nextController.SwitchState(nextController.FollowingState);
-            }
+            //Embarquer la suivante
+            cardController.NextCardInStack?.Follow();
         }
 
         public override void Exit(IStateContext uncastController)
         {
             CastContext(uncastController);
-            cardController.GetComponent<CardDisplay>().FollowPreviousCard(cardController.PreviousCardInStack);
-
         }
 
         public override void OnMouseDrag(IStateContext uncastController)
         {
             CastContext(uncastController);
-
         }
 
         public override void OnMouseUp(IStateContext uncastController)
@@ -47,9 +39,16 @@ namespace Assets._Scripts.StateMachines.Cards
             CastContext(uncastController);
 
             var previousCard = cardController.PreviousCardInStack;
+
+            if (previousCard == null)
+            {
+                cardController.SwitchState(cardController.IdleState);
+                return;
+            }
+
             cardController.GetComponent<CardDisplay>().FollowPreviousCard(previousCard);
 
-            if (previousCard.GetComponent<CardController>().currentState is CardIdleState)
+            if (previousCard.GetComponent<CardController>().currentMovementState is CardIdleState)
                 cardController.SwitchState(cardController.IdleState);
         }
     }

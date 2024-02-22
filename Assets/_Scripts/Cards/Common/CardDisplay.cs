@@ -25,7 +25,10 @@ namespace Assets._Scripts.Cards.Common
 
         private void Update()
         {
-            DebugInfo.text = GetComponent<CardController>().currentState.GetType().Name;
+            DebugInfo.text = GetComponent<CardController>().currentMovementState.GetType().Name + " / " + GetComponent<CardController>().currentTimerState.GetType().Name;
+            DebugInfo.text += " - Sortinglayer: " + StackHelper.ComputeOrderInLayer(gameObject);
+            //DebugInfo.text += " Last position : " + GetComponent<CardController>().LastPosition;
+
         }
 
         private void LoadCardData(BaseCardSO cardSO)
@@ -79,7 +82,7 @@ namespace Assets._Scripts.Cards.Common
         }
 
         /// <summary>
-        /// Switch collider between full size or reduced size
+        /// Rreduced size of collider (usually when this gets a next card dropping above)
         /// </summary>
         internal void ReduceCollider()
         {
@@ -89,6 +92,9 @@ namespace Assets._Scripts.Cards.Common
             ApplyToCollider(sizeY, offsetY);
         }
 
+        /// <summary>
+        /// Reset collider to original size (usually after unlinking next card)
+        /// </summary>
         internal void ResetCollider()
         {
             var sizeY = GlobalVariables.CardSizeY;

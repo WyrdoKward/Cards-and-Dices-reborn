@@ -9,11 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b7565fb2d19e774faac0a8bb8d39cc7, type: 3}
+  m_Script: {fileID: 11500000, guid: 239a2c0ed48b4c24b8699b8957490a1a, type: 3}
   m_Name: Beetle
   m_EditorClassIdentifier: 
-  Name: Bettle
-  Description: Clonk clonk
-  Lore: He goes like "Clonk Clonk!"
+  Name: Beetle
+  Description: He goes like "Clonk Clonk !"
+  Lore: 
   Artwork: {fileID: 21300000, guid: 03e36d4fcdb799d4b977c6ee137b2997, type: 3}
   IsUnique: 0

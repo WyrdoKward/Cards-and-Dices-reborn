@@ -111,8 +111,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 9.01, y: 16.48}
-  m_SizeDelta: {x: 70, y: 70}
+  m_AnchoredPosition: {x: -0.14492, y: 10.5826}
+  m_SizeDelta: {x: 94.77, y: 86.7059}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3052131731452290305
 CanvasRenderer:
@@ -164,12 +164,10 @@ GameObject:
   - component: {fileID: 4828187005928406208}
   - component: {fileID: 4828187005928406223}
   - component: {fileID: 4828187005928406222}
+  - component: {fileID: 6634689118099607748}
   - component: {fileID: 4828187005928406221}
   - component: {fileID: 3048168227795186792}
-  - component: {fileID: -6813543406422413175}
   - component: {fileID: 4411464130758529606}
-  - component: {fileID: -21209508699270923}
-  - component: {fileID: 6634689118099607748}
   m_Layer: 3
   m_Name: Default Card
   m_TagString: Untagged
@@ -249,6 +247,27 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!223 &6634689118099607748
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4828187005928406219}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 2
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 0
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_AdditionalShaderChannelsFlag: 25
+  m_SortingLayerID: 1063947881
+  m_SortingOrder: 0
+  m_TargetDisplay: 0
 --- !u!114 &4828187005928406221
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -282,21 +301,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvas: {fileID: 0}
-  CardSO: {fileID: 11400000, guid: ad18d555299c9894eb8f4f76c232e5f0, type: 2}
+  CardSO: {fileID: 0}
   PreviousCardInStack: {fileID: 0}
   NextCardInStack: {fileID: 0}
---- !u!114 &-6813543406422413175
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4828187005928406219}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 133c65fa02d76f346b157d2665e40218, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  LastPosition: {x: 0, y: 0}
 --- !u!114 &4411464130758529606
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -313,39 +321,6 @@ MonoBehaviour:
   DescriptionText: {fileID: 4366422607218704682}
   ArtworkImage: {fileID: 7337641838998987316}
   DebugInfo: {fileID: 4690714682475548036}
---- !u!114 &-21209508699270923
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4828187005928406219}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ada53f397aeab9343802a70e8b0215d3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!223 &6634689118099607748
-Canvas:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4828187005928406219}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_RenderMode: 2
-  m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
-  m_PixelPerfect: 0
-  m_ReceivesEvents: 1
-  m_OverrideSorting: 0
-  m_OverridePixelPerfect: 0
-  m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 25
-  m_SortingLayerID: 1063947881
-  m_SortingOrder: 0
-  m_TargetDisplay: 0
 --- !u!1 &4978357408950660881
 GameObject:
   m_ObjectHideFlags: 0
@@ -634,8 +609,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4280032492
-  m_fontColor: {r: 0.9245283, g: 0.10902455, b: 0.10902455, a: 1}
+    rgba: 4278255886
+  m_fontColor: {r: 0.05660379, g: 0.0034709887, b: 0.0034709887, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -688,7 +663,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: 0, z: -376.8827, w: -111.822815}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
