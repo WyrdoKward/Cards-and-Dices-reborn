@@ -44,7 +44,7 @@ namespace Assets._Scripts.StateMachines.Cards.MovementState
             CastContext(uncastController);
             var targetCard = DragAndDropHelper.FindOverlappedCardIfExists(cardGO);
             cardController.SetPreviousCard(targetCard);
-
+            Debug.Log($"targetCard = {targetCard}");
             if (targetCard == null)
             {
                 cardController.SwitchState(cardController.IdleState);
@@ -56,11 +56,7 @@ namespace Assets._Scripts.StateMachines.Cards.MovementState
 
             // Si il y a une recette, on la lance
             var firstcardOfStack = StackHelper.GetFirstCardOfStack(cardGO);
-            if (!firstcardOfStack.IsAlreadyRunning() && firstcardOfStack.RunIfRecipe())
-            {
-                cardController.SwitchState(cardController.IdleState); //Voir si création d'un lockedState/ingredientState ?
-                return;
-            }
+            firstcardOfStack.RunOrResetIfRecipe();
 
             cardController.SwitchState(cardController.FollowingState);
         }

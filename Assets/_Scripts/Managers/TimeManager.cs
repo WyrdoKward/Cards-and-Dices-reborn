@@ -45,7 +45,7 @@ namespace Assets._Scripts.Managers
         public void DestroyTimerSlider(GameObject gameObject)
         {
             var timerToDestroy = gameObject.GetComponentInChildren<TimerSliderBehaviour>();
-            timerToDestroy.DestroySelf();
+            timerToDestroy?.DestroySelf();
         }
     }
 }

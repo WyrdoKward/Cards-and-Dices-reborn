@@ -124,7 +124,7 @@ namespace Assets._Scripts.Cards.Common
 
 
             PreviousCardInStack = previous;
-            PreviousCardInStack.GetComponent<CardDisplay>().ReduceCollider(); //déplacer cette logique dans une partie UI dédiée
+            PreviousCardInStack.GetComponent<CardDisplay>().ReduceCollider();
             previous.GetComponent<CardController>().NextCardInStack = gameObject;
 
         }

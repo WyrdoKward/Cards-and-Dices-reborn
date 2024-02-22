@@ -1,4 +1,5 @@
 ﻿using Assets._Scripts.Cards.Common;
+using Assets._Scripts.Utilities.Enums;
 using System;
 using UnityEngine;
 
@@ -6,6 +7,7 @@ namespace Assets._Scripts.Cards.Logic
 {
     internal abstract class CardLogic : MonoBehaviour
     {
+        public abstract ECardType CardType { get; }
         /// <summary>
         ///  Check prérequis généraux avant de déterminer une recette
         /// </summary>

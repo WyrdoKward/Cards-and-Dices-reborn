@@ -16,38 +16,55 @@ namespace Assets._Scripts.StateMachines.Cards.TimerState
         public override void Enter(IStateContext uncastController)
         {
             CastContext(uncastController);
-            Debug.Log($"{cardGO} running...");
+            Debug.Log($"[CardRunningState] {cardGO} running with {EndTimerAction.Method}");
             cardGO.GetComponent<Canvas>().sortingOrder = StackHelper.ComputeOrderInLayer(cardGO);
 
-            //var delay = cardController.CardSO.
-            if (EndTimerAction == null)
-                Debug.LogError($"EndTimerAction null pour {cardGO} !");
+            InitTimer();
 
-            var delay = 10f;
-            timer = new CardTimer(cardGO, EndTimerAction, delay);
+
         }
 
         public override void Exit(IStateContext uncastController)
         {
             CastContext(uncastController);
-            Debug.Log($"{cardGO} exit running");
+            Debug.Log($"[CardRunningState] {cardGO} exit running {EndTimerAction.Method}");
             EndTimerAction = null;
             timer.Destroy(cardGO);
             DisperseCards();
+        }
+
+        /// <summary>
+        /// Resets the timer and link a new action without dispersing cards
+        /// </summary>
+        /// <param name="newAction"></param>
+        public void ResetState(Action newAction)
+        {
+            timer.Destroy(cardGO);
+            EndTimerAction = newAction;
+            InitTimer();
         }
 
         public override void UpdateState(IStateContext uncastController)
         {
             CastContext(uncastController);
             var isTimerOver = timer.Update();
-            if (isTimerOver)
+            var isCurrentStackAReceipe = cardGO.GetComponent<CardLogic>().GetReceipe() != null;
+            if (!isCurrentStackAReceipe || isTimerOver)
             {
                 cardController.SwitchState(cardController.NoTimerState);
             }
+        }
 
-            if (cardController.GetComponent<CardLogic>().GetReceipe() == null)
-                cardController.SwitchState(cardController.NoTimerState);
+        private void InitTimer()
+        {
+            if (EndTimerAction == null)
+            {
+                Debug.LogError($"EndTimerAction null pour {cardGO} !");
+                return;
+            }
 
+            var delay = 10f;
+            timer = new CardTimer(cardGO, EndTimerAction, delay);
         }
 
         private void DisperseCards()
