@@ -35,7 +35,7 @@ namespace Assets._Scripts.StateMachines.Cards.MovementState
         public override void OnMouseDrag(IStateContext uncastController)
         {
             CastContext(uncastController);
-            TargetPosition = InputHelper.GetCursorPositionInWorld(_rectTransform);
+            TargetPosition = InputHelper.GetCursorPositionInWorld() - cardController.MouseDelta;
             //Debug.Log($"Dragging {cardGO}");
         }
 

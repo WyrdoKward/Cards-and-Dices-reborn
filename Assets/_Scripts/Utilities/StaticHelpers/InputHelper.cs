@@ -7,12 +7,9 @@ namespace Assets._Scripts.Utilities
         /// <summary>
         /// Renvoie la position de la souris dans le monde ingame
         /// </summary>
-        /// <param name="target">L'objet survolé lors d'un drag n drop par exemple</param>
-        internal static Vector2 GetCursorPositionInWorld(RectTransform target)
+        internal static Vector2 GetCursorPositionInWorld()
         {
-            //https://www.youtube.com/watch?v=uNCCS6DjebA
-            Vector2 screenPosition = Input.mousePosition;
-            var worldPosition = Camera.main.ScreenToWorldPoint(screenPosition);
+            var worldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
             return worldPosition;
         }

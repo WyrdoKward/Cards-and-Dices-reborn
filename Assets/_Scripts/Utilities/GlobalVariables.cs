@@ -13,6 +13,7 @@ namespace Assets._Scripts.Utilities
         #endregion
 
         #region animationUI
+        public const float DragThresholdDelta = 0.1f;
         public static readonly float DefaultLerpingValue = 5f;
         public const float LerpSpeed = 25f;
         public static readonly float CardDragNDropScaleFactor = 1.05f;

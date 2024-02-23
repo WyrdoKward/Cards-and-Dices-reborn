@@ -1,8 +1,9 @@
-﻿using Assets._Scripts.Managers;
+using Assets._Scripts.Managers;
 using Assets._Scripts.ScriptableObjects;
 using Assets._Scripts.StateMachines;
 using Assets._Scripts.StateMachines.Cards.MovementState;
 using Assets._Scripts.StateMachines.Cards.TimerState;
+using Assets._Scripts.Utilities;
 using System;
 using UnityEngine;
 
@@ -31,7 +32,8 @@ namespace Assets._Scripts.Cards.Common
         public GameObject NextCardInStack;
 
         public Vector2 LastPosition;
-
+        public Vector2 MousePosOnMouseDown;
+        public Vector2 MouseDelta;
 
         private void Awake()
         {
@@ -77,7 +79,6 @@ namespace Assets._Scripts.Cards.Common
             }
 
             Debug.LogError($"{newState} is not a valid state");
-
         }
 
         #region LinkCards
@@ -143,20 +144,31 @@ namespace Assets._Scripts.Cards.Common
         #region Draggable
         private void OnMouseDown()
         {
-            Debug.Log($"Click on {CardSO.name}");
+            MousePosOnMouseDown = InputHelper.GetCursorPositionInWorld();
         }
 
         private void OnMouseDrag()
         {
-            // TODO Conditionner le départ du drag à un minimum de mvt de la souris depuis la pos initiale pour pouvoir cliquer et afficher qqch sans que ca soit considéré comme du drag
-            MovingState.MovingByMouse = true;
-            currentMovementState.OnMouseDrag(this);
+            // Conditionner le départ du drag à un minimum de mvt de la souris depuis la pos initiale pour pouvoir cliquer et afficher qqch sans que ca soit considéré comme du drag
+            if (!MovingState.MovingByMouse && Vector2.Distance(InputHelper.GetCursorPositionInWorld(), MousePosOnMouseDown) > GlobalVariables.DragThresholdDelta)
+            {
+                //calculer un delta entre la pos de la souris et du centre de la carte pour éviter un gros décalage si on clique dans un coin
+                MouseDelta = InputHelper.GetCursorPositionInWorld() - (Vector2)transform.position;
+                MovingState.MovingByMouse = true;
+            }
+
+            if (MovingState.MovingByMouse)
+                currentMovementState.OnMouseDrag(this);
         }
 
 
         //quand on relache la carte
         private void OnMouseUp()
         {
+            if (!MovingState.MovingByMouse)
+                Debug.Log($"Click on {CardSO.name}"); //Afficher la popup d'infos ici
+
+            MousePosOnMouseDown = Vector2.zero;
             currentMovementState.OnMouseUp(this);
         }
         #endregion
