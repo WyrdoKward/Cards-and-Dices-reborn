@@ -37,7 +37,7 @@ namespace Assets._Scripts.Cards.Common
 
         private void Awake()
         {
-            GameObject.Find("CardManager").GetComponent<CardManager>().RegisterCardToGlobalList(gameObject);
+            GameObject.Find("CardManager").GetComponent<CardProvider>().RegisterCardToGlobalList(gameObject);
             CardSO.InitializedCardWithScriptableObject(gameObject);
             LastPosition = GetComponent<RectTransform>().position;
         }

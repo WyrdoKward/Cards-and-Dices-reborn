@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Assets._Scripts.Managers
 {
-    internal class CardManager : MonoBehaviour
+    internal class CardProvider : MonoBehaviour
     {
         public List<GameObject> allCards = new List<GameObject>();
 

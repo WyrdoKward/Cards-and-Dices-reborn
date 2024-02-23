@@ -1,4 +1,5 @@
-﻿using Assets._Scripts.Utilities;
+﻿using Assets._Scripts.ScriptableObjects;
+using Assets._Scripts.Utilities;
 using Assets._Scripts.Utilities.Enums;
 using System;
 using System.Linq;
@@ -34,6 +35,8 @@ namespace Assets._Scripts.Cards.Logic
         {
             var followers = StackHelper.GetCardsAboveInStack(gameObject);
             Debug.Log($"{followers.Count} F are exploring {gameObject}...");
+            var lootList = ((LocationCardSO)CardController.CardSO).Loot;
+            CardSpawner.GenerateRandomCardFromList(lootList);
         }
 
         private void Explore2()

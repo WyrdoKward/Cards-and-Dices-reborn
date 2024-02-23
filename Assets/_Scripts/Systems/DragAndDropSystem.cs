@@ -108,7 +108,7 @@ namespace Assets._Scripts.Systems
             var currentStack = new List<GameObject>() { _movedCard };
             currentStack.AddRange(StackHelper.GetCardsAboveInStack(_movedCard));
             GameObject foundCard = null;
-            foreach (var card in GameObject.Find("CardManager").GetComponent<CardManager>().GetAllCardsExcept(currentStack))
+            foreach (var card in GameObject.Find("CardManager").GetComponent<CardProvider>().GetAllCardsExcept(currentStack))
             {
                 if (card.GetComponent<BoxCollider2D>().bounds.Intersects(_movedCard.GetComponent<BoxCollider2D>().bounds))
                 {
