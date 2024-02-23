@@ -22,7 +22,7 @@ public class DebugDisplay : MonoBehaviour
         //var transformPos = Camera.main.WorldToScreenPoint(CardToWatch.transform.position);
 
         cardPos.text = CardToWatch.GetComponent<RectTransform>().position.z.ToString();
-        var mouse = InputHelper.GetCursorPositionInWorld((RectTransform)CardToWatch.transform);
+        var mouse = InputHelper.GetCursorPositionInWorld();
         //mouse.z = Camera.main.transform.position.z;
         ////
         //mouse.z = Camera.main.transform.position.z;
