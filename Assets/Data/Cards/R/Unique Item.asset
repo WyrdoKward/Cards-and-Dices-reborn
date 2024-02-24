@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cc81cbcc0881f1648b78cd6eec93036a, type: 3}
-  m_Name: Scrap Metal
+  m_Name: Unique Item
   m_EditorClassIdentifier: 
-  Name: Scrap Metal
-  Description: How could you use this...
+  Name: Unique Item
+  Description: Somehting unique
   Lore: 
   Artwork: {fileID: 21300000, guid: 235bdab50c1d5f1408831a0471d5b9a4, type: 3}
-  IsUnique: 0
+  IsUnique: 1

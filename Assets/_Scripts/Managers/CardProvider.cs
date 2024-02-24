@@ -6,16 +6,16 @@ namespace Assets._Scripts.Managers
 {
     internal class CardProvider : MonoBehaviour
     {
-        public List<GameObject> allCards = new List<GameObject>();
+        public List<GameObject> AllCards = new();
 
         public void RegisterCardToGlobalList(GameObject card)
         {
-            allCards.Add(card);
+            AllCards.Add(card);
         }
 
         public List<GameObject> GetAllCardsExcept(List<GameObject> notThisCards)
         {
-            return allCards.Except(notThisCards).ToList();
+            return AllCards.Except(notThisCards).ToList();
         }
     }
 }

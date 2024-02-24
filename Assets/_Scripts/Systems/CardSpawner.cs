@@ -3,6 +3,7 @@ using Assets._Scripts.Managers;
 using Assets._Scripts.ScriptableObjects;
 using Assets._Scripts.Utilities;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Assets._Scripts.Systems
@@ -22,9 +23,8 @@ namespace Assets._Scripts.Systems
 
         public void GenerateRandomCardFromList(List<BaseCardSO> cards)
         {
-            //TODO : Filtrer les cartes uniques
-            //var filteredLoot = FilterExistingUniqueCards(cards);
-            var filteredLoot = cards;
+            var filteredLoot = FilterOutExistingUniqueCards(cards);
+
             if (filteredLoot.Count == 0)
                 SpawnCard(DefaultLoot);
             else
@@ -47,6 +47,23 @@ namespace Assets._Scripts.Systems
             spawedCardGO.transform.SetParent(CardContainerGO.transform, false);
             spawedCardGO.GetComponentInChildren<RectTransform>().localScale = GlobalVariables.CardDefaultScale;
             spawedCardGO.GetComponent<Canvas>().sortingOrder = 10; // temporaire, le temps de coder un truc pour capter les cartes autour et juste se poser au dessus
+        }
+
+        private List<BaseCardSO> FilterOutExistingUniqueCards(IEnumerable<BaseCardSO> cards)
+        {
+            var res = new List<BaseCardSO>(cards);
+
+            var inGameCardNames = cardProvider.AllCards.Select(c => c.name);
+
+            foreach (var cardSO in cards)
+            {
+                if (!cardSO.IsUnique)
+                    continue;
+
+                if (inGameCardNames.Contains(cardSO.Name))
+                    res.Remove(cardSO);
+            }
+            return res;
         }
     }
 }
