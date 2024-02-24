@@ -26,7 +26,7 @@ namespace Assets._Scripts.Cards.Common
         private void Update()
         {
             DebugInfo.text = GetComponent<CardController>().currentMovementState.GetType().Name + " / " + GetComponent<CardController>().currentTimerState.GetType().Name;
-            DebugInfo.text += " - Sortinglayer: " + StackHelper.ComputeOrderInLayer(gameObject);
+            DebugInfo.text += " - Sortinglayer: " + GetComponent<Canvas>().sortingOrder;
             //DebugInfo.text += " Last position : " + GetComponent<CardController>().LastPosition;
 
         }
@@ -37,6 +37,14 @@ namespace Assets._Scripts.Cards.Common
             DescriptionText.text = cardSO.Description;
             ArtworkImage.sprite = cardSO.Artwork;
             //cardSO.Print();
+
+
+            // Bug connu : Forcer le overrideSorting car pas pris en compte à l'instanciation du GO dans BaseCardSO.InitializedCardWithScriptableObject
+            // https://discussions.unity.com/t/canvas-override-sorting-issue/187242
+            if (!gameObject.GetComponent<Canvas>().overrideSorting)
+            {
+                gameObject.GetComponent<Canvas>().overrideSorting = true;
+            }
         }
 
         public void ResetToDefaultDisplay()

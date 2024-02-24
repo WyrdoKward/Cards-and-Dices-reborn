@@ -18,6 +18,7 @@ namespace Assets._Scripts.ScriptableObjects
         public virtual void InitializedCardWithScriptableObject(GameObject cardBodyGO)
         {
             cardBodyGO.GetComponent<Canvas>().overrideSorting = true;
+            cardBodyGO.GetComponent<Canvas>().sortingLayerName = "Table";
         }
     }
 }
