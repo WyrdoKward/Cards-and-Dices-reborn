@@ -7,7 +7,7 @@ namespace Assets._Scripts.Cards.Logic
     {
         public override ECardType CardType => ECardType.Resource;
 
-        internal override Action GetReceipe()
+        internal override Action GetActionToExecuteAfterTimer()
         {
             if (!base.VerifyReceipe()) return null;
 

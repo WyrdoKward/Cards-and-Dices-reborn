@@ -1,4 +1,5 @@
 ﻿using Assets._Scripts.Cards.Common;
+using Assets._Scripts.ScriptableObjects;
 using Assets._Scripts.Systems;
 using Assets._Scripts.Utilities.Enums;
 using System;
@@ -18,13 +19,20 @@ namespace Assets._Scripts.Cards.Logic
             CardSpawner = GameObject.Find("Managers/CardManager").GetComponent<CardSpawner>();
         }
 
+        /// <summary>
+        /// Easy access to the SO held by the controller
+        /// </summary>
+        internal BaseCardSO ScriptableObject()
+        {
+            return GetComponent<CardController>().CardSO;
+        }
 
         /// <summary>
         ///  Check prérequis généraux avant de déterminer une recette
         /// </summary>
         /// <returns></returns>
         /// <exception cref="System.Exception"></exception>
-        internal virtual bool VerifyReceipe()
+        internal bool VerifyReceipe()
         {
             if (GetComponent<CardController>().PreviousCardInStack != null)
                 throw new System.Exception("Do not call this on a card not first in its stack");
@@ -38,7 +46,11 @@ namespace Assets._Scripts.Cards.Logic
             return true;
         }
 
-        internal virtual Action GetReceipe()
+        /// <summary>
+        /// Renvoie la méthode qui correspond à la combinaison de cartes stackées
+        /// </summary>
+        /// <returns></returns>
+        internal virtual Action GetActionToExecuteAfterTimer()
         {
             return null;
         }

@@ -48,7 +48,7 @@ public static class StatMachineGOExtension
         if (gameObject == null) return false;
         Debug.Log($"Run if receipe {gameObject}");
         var controller = gameObject.GetComponent<CardController>();
-        var action = gameObject.GetComponent<CardLogic>().GetReceipe();
+        var action = gameObject.GetComponent<CardLogic>().GetActionToExecuteAfterTimer();
 
         //Arrête le timer en cours si il n'y a plus de recette
         if (action == null)

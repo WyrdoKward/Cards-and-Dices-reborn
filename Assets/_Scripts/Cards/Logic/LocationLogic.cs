@@ -11,17 +11,15 @@ namespace Assets._Scripts.Cards.Logic
     {
         public override ECardType CardType => ECardType.Location;
 
-        internal override Action GetReceipe()
+        internal override Action GetActionToExecuteAfterTimer()
         {
-            if (!base.VerifyReceipe()) return null;
+            if (!VerifyReceipe()) return null;
 
             if (StackHelper.GetCardsAboveInStack(gameObject).Count == 2) //TODO Utiliser ca pour tester les changements de recette lorsqu'un timer est déjà déclenché
                 return Explore2;
 
             if (IsExploration())
                 return Explore;
-
-
 
             return null;
         }
