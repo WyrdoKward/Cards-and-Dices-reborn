@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Assets._Scripts.Utilities.Cache;
+using UnityEngine;
 
 namespace Assets._Scripts.ScriptableObjects
 {
@@ -9,6 +10,8 @@ namespace Assets._Scripts.ScriptableObjects
         public string Lore; // Long description
         public Sprite Artwork;
         public bool IsUnique;
+        [Tooltip("Le nom du script à charger depuis GameData/CardsBehaviour/xxx")]
+        public string BehaviourScriptToLoad;
 
         public void Print()
         {
@@ -19,6 +22,20 @@ namespace Assets._Scripts.ScriptableObjects
         {
             cardBodyGO.GetComponent<Canvas>().overrideSorting = true;
             cardBodyGO.GetComponent<Canvas>().sortingLayerName = "Table";
+
+            if (string.IsNullOrEmpty(BehaviourScriptToLoad))
+                return;
+
+            //On vérifie que le behaviour qu'on essaye d'ajouter existe
+            if (ComponentCache.Registrations.ContainsKey(BehaviourScriptToLoad))
+            {
+                var behaviourToLoad = ComponentCache.Registrations[BehaviourScriptToLoad];
+                cardBodyGO.AddComponent(behaviourToLoad);
+            }
+            else
+            {
+                Debug.LogWarning($"{BehaviourScriptToLoad} is not a valid ComponentIdentifierAttribute");
+            }
         }
     }
 }
