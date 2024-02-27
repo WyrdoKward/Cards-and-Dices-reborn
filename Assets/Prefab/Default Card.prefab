@@ -301,10 +301,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvas: {fileID: 0}
-  CardSO: {fileID: 0}
+  CardSO: {fileID: 11400000, guid: 0eaee3c0d006dfa4c9f48f59078bbf26, type: 2}
   PreviousCardInStack: {fileID: 0}
   NextCardInStack: {fileID: 0}
   LastPosition: {x: 0, y: 0}
+  MousePosOnMouseDown: {x: 0, y: 0}
+  MouseDelta: {x: 0, y: 0}
 --- !u!114 &4411464130758529606
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,4 +1,5 @@
-﻿using Assets._Scripts.Utilities;
+﻿using Assets._Scripts.ScriptableObjects;
+using Assets._Scripts.Utilities;
 using Assets._Scripts.Utilities.Enums;
 using System;
 using System.Linq;
@@ -10,17 +11,15 @@ namespace Assets._Scripts.Cards.Logic
     {
         public override ECardType CardType => ECardType.Location;
 
-        internal override Action GetReceipe()
+        internal override Action GetActionToExecuteAfterTimer()
         {
-            if (!base.VerifyReceipe()) return null;
+            if (!VerifyReceipe()) return null;
 
             if (StackHelper.GetCardsAboveInStack(gameObject).Count == 2) //TODO Utiliser ca pour tester les changements de recette lorsqu'un timer est déjà déclenché
                 return Explore2;
 
             if (IsExploration())
                 return Explore;
-
-
 
             return null;
         }
@@ -34,6 +33,8 @@ namespace Assets._Scripts.Cards.Logic
         {
             var followers = StackHelper.GetCardsAboveInStack(gameObject);
             Debug.Log($"{followers.Count} F are exploring {gameObject}...");
+            var lootList = ((LocationCardSO)CardController.CardSO).Loot;
+            CardSpawner.GenerateRandomCardFromList(lootList);
         }
 
         private void Explore2()

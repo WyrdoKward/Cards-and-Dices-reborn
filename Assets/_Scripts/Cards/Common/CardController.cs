@@ -1,9 +1,11 @@
+using Assets._Scripts.Cards.Logic;
 using Assets._Scripts.Managers;
 using Assets._Scripts.ScriptableObjects;
 using Assets._Scripts.StateMachines;
 using Assets._Scripts.StateMachines.Cards.MovementState;
 using Assets._Scripts.StateMachines.Cards.TimerState;
 using Assets._Scripts.Utilities;
+using Assets._Scripts.Utilities.Enums;
 using System;
 using UnityEngine;
 
@@ -11,8 +13,8 @@ namespace Assets._Scripts.Cards.Common
 {
     public class CardController : MonoBehaviour, IStateContext
     {
-        [SerializeField]
-        private Canvas canvas;
+        //[SerializeField]
+        //private Canvas canvas;
         public BaseCardSO CardSO;
 
         // State Machine
@@ -26,6 +28,7 @@ namespace Assets._Scripts.Cards.Common
         public CardNoTimerState NoTimerState = new();
         public CardIngredientState IngredientState = new();
 
+        // Context elements
         public event Action<BaseCardSO> OnStartCard;
 
         public GameObject PreviousCardInStack;
@@ -37,7 +40,7 @@ namespace Assets._Scripts.Cards.Common
 
         private void Awake()
         {
-            GameObject.Find("CardManager").GetComponent<CardManager>().RegisterCardToGlobalList(gameObject);
+            GameObject.Find("Managers/CardManager").GetComponent<CardProvider>().RegisterCardToGlobalList(gameObject);
             CardSO.InitializedCardWithScriptableObject(gameObject);
             LastPosition = GetComponent<RectTransform>().position;
         }
@@ -46,10 +49,20 @@ namespace Assets._Scripts.Cards.Common
         {
             OnStartCard?.Invoke(CardSO);
 
+            //Movement state
             currentMovementState = IdleState;
             currentMovementState.Enter(this);
 
-            currentTimerState = NoTimerState;
+            //Timer state
+            if (GetComponent<CardLogic>().CardType == ECardType.Threat)
+            {
+                RunningState.TimerDuration = ((ThreatCardSO)CardSO).ExecuteThreatDuration;
+                RunningState.EndTimerAction = GetComponent<ThreatLogic>().ExecuteThreatAfterTimer;
+                currentTimerState = RunningState;
+            }
+            else
+                currentTimerState = NoTimerState;
+
             currentTimerState.Enter(this);
         }
 
@@ -58,6 +71,13 @@ namespace Assets._Scripts.Cards.Common
         {
             currentMovementState.UpdateState(this);
             currentTimerState.UpdateState(this);
+        }
+
+        void OnDestroy()
+        {
+            UnlinkNextCard();
+            UnlinkPreviousCard();
+            GameObject.Find("Managers/CardManager").GetComponent<CardProvider>().AllCards.Remove(gameObject);
         }
 
         public void SwitchState(IState newState)

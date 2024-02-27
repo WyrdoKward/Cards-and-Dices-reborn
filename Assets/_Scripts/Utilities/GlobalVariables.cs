@@ -14,21 +14,24 @@ namespace Assets._Scripts.Utilities
 
         #region animationUI
         public const float DragThresholdDelta = 0.1f;
-        public static readonly float DefaultLerpingValue = 5f;
+        public const float DefaultLerpingValue = 5f;
         public const float LerpSpeed = 25f;
-        public static readonly float CardDragNDropScaleFactor = 1.05f;
+        public const float CardDragNDropScaleFactor = 1.05f;
         public static readonly Vector3 CardDefaultScale = new Vector3(1, 1, 1);
         public static readonly Vector3 CardBiggerScale = new Vector3(1.05f, 1.05f, 1.05f);
-        public static readonly float CardOffsetOnSnap = 15f;
+        public const float CardOffsetOnSnap = 15f;
 
         //Colliders
-        public static readonly float CardSizeY = 140f;
-        public static readonly float SnapOffsetY = 62.5f;
+        public const float CardSizeY = 140f;
+        public const float SnapOffsetY = 62.5f;
 
 
         //Canvas 
-        public static readonly int DefaultCardSortingLayer = 0; //Default layer for a card just laying on the table
-        public static readonly int OnDragCardSortingLayer = 99; //Allows to put the current dragged card above everything else
+        public const int DefaultCardSortingLayer = 0; //Default layer for a card just laying on the table
+        public const int OnDragCardSortingLayer = 99; //Allows to put the current dragged card above everything else
+
+        //Timers
+        public const float DefaultTimerDuration = 5f;
         #endregion
     }
 }

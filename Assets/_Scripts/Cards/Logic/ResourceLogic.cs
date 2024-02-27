@@ -3,9 +3,9 @@ using System;
 
 namespace Assets._Scripts.Cards.Logic
 {
-    internal class FollowerLogic : CardLogic
+    internal class ResourceLogic : CardLogic
     {
-        public override ECardType CardType => ECardType.Follower;
+        public override ECardType CardType => ECardType.Resource;
 
         internal override Action GetActionToExecuteAfterTimer()
         {
