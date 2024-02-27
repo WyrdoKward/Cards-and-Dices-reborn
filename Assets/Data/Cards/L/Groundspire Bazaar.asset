@@ -18,4 +18,5 @@ MonoBehaviour:
   Artwork: {fileID: 21300000, guid: abd0e0afa72c31a4990f9be015388107, type: 3}
   IsUnique: 0
   ExplorationTime: 5
-  Loot: []
+  Loot:
+  - {fileID: 11400000, guid: 3b68b17e06273574289f01b4296f1052, type: 2}

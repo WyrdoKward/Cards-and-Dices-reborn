@@ -9,13 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a3454a63faa7a8c4793bb41cd6415e57, type: 3}
-  m_Name: Bas Scrap Eater
+  m_Script: {fileID: 11500000, guid: cc81cbcc0881f1648b78cd6eec93036a, type: 3}
+  m_Name: Currency
   m_EditorClassIdentifier: 
-  Name: Scrap Eater
-  Description: It eats scrap metal
+  Name: Coin
+  Description: 1 $
   Lore: 
-  Artwork: {fileID: 21300000, guid: e5600378dd761e64d9423790c482bf36, type: 3}
+  Artwork: {fileID: 21300000, guid: a66f460c1b88eaf4596bdbb294350564, type: 3}
   IsUnique: 0
-  BehaviourScript: ScrapEater
-  ExecuteThreatDuration: 2
