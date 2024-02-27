@@ -37,13 +37,13 @@ namespace Assets._Scripts.Systems
 
         private void SpawnCard(BaseCardSO cardData)
         {
-            Debug.Log($"SpawnCard {cardData.name}");
+            Debug.Log($"SpawnCard {cardData.Name}");
             var controller = CardPrefab.GetComponentInChildren<CardController>();
             controller.CardSO = cardData;
 
             var spawedCardGO = Instantiate(CardPrefab, new Vector3(10f, 10f, 0), Quaternion.identity);
 
-            spawedCardGO.name = cardData.name;
+            spawedCardGO.name = cardData.Name;
             spawedCardGO.transform.SetParent(CardContainerGO.transform, false);
             spawedCardGO.GetComponentInChildren<RectTransform>().localScale = GlobalVariables.CardDefaultScale;
             spawedCardGO.GetComponent<Canvas>().sortingOrder = 10; // temporaire, le temps de coder un truc pour capter les cartes autour et juste se poser au dessus

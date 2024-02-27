@@ -40,7 +40,7 @@ namespace Assets._Scripts.Cards.Common
 
         private void Awake()
         {
-            GameObject.Find("CardManager").GetComponent<CardProvider>().RegisterCardToGlobalList(gameObject);
+            GameObject.Find("Managers/CardManager").GetComponent<CardProvider>().RegisterCardToGlobalList(gameObject);
             CardSO.InitializedCardWithScriptableObject(gameObject);
             LastPosition = GetComponent<RectTransform>().position;
         }
@@ -71,6 +71,13 @@ namespace Assets._Scripts.Cards.Common
         {
             currentMovementState.UpdateState(this);
             currentTimerState.UpdateState(this);
+        }
+
+        void OnDestroy()
+        {
+            UnlinkNextCard();
+            UnlinkPreviousCard();
+            GameObject.Find("Managers/CardManager").GetComponent<CardProvider>().AllCards.Remove(gameObject);
         }
 
         public void SwitchState(IState newState)

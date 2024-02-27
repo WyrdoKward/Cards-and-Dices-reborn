@@ -21,5 +21,4 @@ MonoBehaviour:
   ExplorationTime: 3
   Loot:
   - {fileID: 11400000, guid: 0eaee3c0d006dfa4c9f48f59078bbf26, type: 2}
-  - {fileID: 11400000, guid: 48a3def7ced4a6144b5439c7fa13bac1, type: 2}
   - {fileID: 11400000, guid: 9e68ed59c1487fe49b3f9291f49f8633, type: 2}

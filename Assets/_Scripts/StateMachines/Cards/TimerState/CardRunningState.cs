@@ -12,9 +12,6 @@ namespace Assets._Scripts.StateMachines.Cards.TimerState
         public Action EndTimerAction;
         private CardTimer timer;
 
-
-
-
         public override void Enter(IStateContext uncastController)
         {
             CastContext(uncastController);

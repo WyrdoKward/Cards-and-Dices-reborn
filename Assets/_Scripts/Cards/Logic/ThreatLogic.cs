@@ -1,5 +1,4 @@
 ﻿using Assets._Scripts.GameData.CardsBehaviour;
-using Assets._Scripts.ScriptableObjects;
 using Assets._Scripts.Utilities.Enums;
 using System;
 
@@ -19,7 +18,7 @@ namespace Assets._Scripts.Cards.Logic
 
         public void ExecuteThreatAfterTimer()
         {
-            ((ThreatCardSO)ScriptableObject()).Behaviour.GetComponent<ThreatBehaviour>().ExecuteThreat();
+            GetComponent<ThreatSpecificBehaviour>()?.ExecuteThreat();
         }
     }
 }
