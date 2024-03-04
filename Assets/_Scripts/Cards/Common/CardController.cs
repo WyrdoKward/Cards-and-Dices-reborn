@@ -1,6 +1,6 @@
 using Assets._Scripts.Cards.Logic;
 using Assets._Scripts.Managers;
-using Assets._Scripts.ScriptableObjects;
+using Assets._Scripts.ScriptableObjects.Entities;
 using Assets._Scripts.StateMachines;
 using Assets._Scripts.StateMachines.Cards.MovementState;
 using Assets._Scripts.StateMachines.Cards.TimerState;

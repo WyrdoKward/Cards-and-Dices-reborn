@@ -1,5 +1,5 @@
 ﻿using Assets._Scripts.Cards.Common;
-using Assets._Scripts.ScriptableObjects;
+using Assets._Scripts.ScriptableObjects.Entities;
 using Assets._Scripts.Systems;
 using Assets._Scripts.Utilities.Enums;
 using System;

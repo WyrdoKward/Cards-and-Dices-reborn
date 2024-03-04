@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Assets._Scripts.ScriptableObjects
+namespace Assets._Scripts.ScriptableObjects.Entities
 {
     [ExecuteInEditMode]
     [CreateAssetMenu(fileName = "New Location", menuName = "Card/Location")]
     internal class LocationCardSO : BaseCardSO
     {
-        public float ExplorationTime;
+        public float ExplorationTime = 10f;
         public List<BaseCardSO> Loot;
 
         public override void InitializedCardWithScriptableObject(GameObject cardBodyGO)

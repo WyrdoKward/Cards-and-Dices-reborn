@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c8c4228416b30914aaaf985b167a22d8, type: 3}
+  m_Script: {fileID: 11500000, guid: f1616a062ed5d7c40b932ebbfa81ecd6, type: 3}
   m_Name: Mechanical Wastelands
   m_EditorClassIdentifier: 
   Name: Mechanical Wastelands
@@ -19,8 +19,8 @@ MonoBehaviour:
   Artwork: {fileID: 21300000, guid: 0891e2bcb3500134daf9aaf83a550b57, type: 3}
   IsUnique: 1
   BehaviourScriptToLoad: 
-  ExplorationTime: 3
+  ExplorationTime: 5
   Loot:
   - {fileID: 11400000, guid: 0eaee3c0d006dfa4c9f48f59078bbf26, type: 2}
-  - {fileID: 11400000, guid: 9e68ed59c1487fe49b3f9291f49f8633, type: 2}
   - {fileID: 11400000, guid: 879c7fd43e79c5147999309ae04d91e8, type: 2}
+  - {fileID: 11400000, guid: 97a2de955c5da2843b63b930b61c064e, type: 2}

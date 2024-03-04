@@ -1,7 +1,7 @@
 ﻿using Assets._Scripts.Utilities.Cache;
 using UnityEngine;
 
-namespace Assets._Scripts.ScriptableObjects
+namespace Assets._Scripts.ScriptableObjects.Entities
 {
     public abstract class BaseCardSO : ScriptableObject
     {

@@ -1,18 +1,18 @@
 ﻿using Assets._Scripts.Cards.Logic;
 using UnityEngine;
 
-namespace Assets._Scripts.ScriptableObjects
+namespace Assets._Scripts.ScriptableObjects.Entities
 {
     [ExecuteInEditMode]
-    [CreateAssetMenu(fileName = "New Resource", menuName = "Card/Resource")]
-
-    internal class ResourceCardSO : BaseCardSO
+    [CreateAssetMenu(fileName = "New Pnj", menuName = "Card/Pnj")]
+    internal class PnjCardSO : BaseCardSO
     {
+        public float TalkDuration = 10f;
+
         public override void InitializedCardWithScriptableObject(GameObject cardBodyGO)
         {
             base.InitializedCardWithScriptableObject(cardBodyGO);
-
-            cardBodyGO.AddComponent<ResourceLogic>();
+            cardBodyGO.AddComponent<PnjLogic>();
         }
     }
 }

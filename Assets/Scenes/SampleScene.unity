@@ -1446,7 +1446,7 @@ PrefabInstance:
     - target: {fileID: 3048168227795186792, guid: 5d0bcb01c6904a44bb27a137922007d6, type: 3}
       propertyPath: CardSO
       value: 
-      objectReference: {fileID: 11400000, guid: 13721240a307e6a44af1a412d22b8002, type: 2}
+      objectReference: {fileID: 11400000, guid: 17d26558bd020ea4c9ee9ec7150c33f5, type: 2}
     - target: {fileID: 3048168227795186792, guid: 5d0bcb01c6904a44bb27a137922007d6, type: 3}
       propertyPath: canvas
       value: 

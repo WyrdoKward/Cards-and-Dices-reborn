@@ -1,19 +1,18 @@
 ﻿using Assets._Scripts.Cards.Logic;
 using UnityEngine;
 
-namespace Assets._Scripts.ScriptableObjects
+namespace Assets._Scripts.ScriptableObjects.Entities
 {
     [ExecuteInEditMode]
-    [CreateAssetMenu(fileName = "New Threat", menuName = "Card/Threat")]
-    internal class ThreatCardSO : BaseCardSO
+    [CreateAssetMenu(fileName = "New Follower", menuName = "Card/Follower")]
+    internal class FollowerCardSO : BaseCardSO
     {
-        public float ExecuteThreatDuration;
 
         public override void InitializedCardWithScriptableObject(GameObject cardBodyGO)
         {
             base.InitializedCardWithScriptableObject(cardBodyGO);
 
-            cardBodyGO.AddComponent<ThreatLogic>();
+            cardBodyGO.AddComponent<FollowerLogic>();
         }
     }
 }

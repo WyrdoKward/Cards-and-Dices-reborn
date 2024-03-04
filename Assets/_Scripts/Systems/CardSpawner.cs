@@ -1,6 +1,6 @@
 ﻿using Assets._Scripts.Cards.Common;
 using Assets._Scripts.Managers;
-using Assets._Scripts.ScriptableObjects;
+using Assets._Scripts.ScriptableObjects.Entities;
 using Assets._Scripts.Utilities;
 using System.Collections.Generic;
 using System.Linq;
