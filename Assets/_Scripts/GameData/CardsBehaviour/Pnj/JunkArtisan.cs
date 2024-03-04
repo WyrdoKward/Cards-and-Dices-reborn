@@ -1,7 +1,10 @@
-﻿using System;
+﻿using Assets._Scripts.Utilities.Cache;
+using System;
+using UnityEngine;
 
 namespace Assets._Scripts.GameData.CardsBehaviour.Pnj
 {
+    [ComponentIdentifierAttribute(Name = "JunkArtisan")]
     internal class JunkArtisan : PnjSpecificBehaviour
     {
         public override Action GetSpecificReceipe()
@@ -11,7 +14,7 @@ namespace Assets._Scripts.GameData.CardsBehaviour.Pnj
 
         public override void Talk()
         {
-            throw new NotImplementedException();
+            Debug.Log($"Hello, I'm Junk Artisan !");
         }
 
         public override void Trade()
