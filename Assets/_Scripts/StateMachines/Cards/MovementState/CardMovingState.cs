@@ -56,7 +56,7 @@ namespace Assets._Scripts.StateMachines.Cards.MovementState
 
             // Si il y a une recette, on la lance
             var firstcardOfStack = StackHelper.GetFirstCardOfStack(cardGO);
-            firstcardOfStack.RunOrResetIfRecipe();
+            firstcardOfStack.RunOrResetIfCombination();
 
             cardController.SwitchState(cardController.FollowingState);
         }

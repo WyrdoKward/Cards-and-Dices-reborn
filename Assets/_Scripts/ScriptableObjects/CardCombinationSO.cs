@@ -1,4 +1,5 @@
 ﻿using Assets._Scripts.ScriptableObjects.Entities;
+using Assets._Scripts.Utilities.Enums;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,9 +9,10 @@ namespace Assets._Scripts.ScriptableObjects
     /// Hold a combination and its output for crafts with specific cards
     /// </summary>
     [CreateAssetMenu(fileName = "New Craft", menuName = "Combination/New Craft")]
-    internal class CardCombination : ScriptableObject
+    internal class CardCombinationSO : ScriptableObject
     {
-        public List<BaseCardSO> inputCards; // Liste des cartes d'entrée pour la combinaison
-        public List<BaseCardSO> outputCards; // Liste des cartes résultantes de la combinaison
+        public EInteractionType InteractionType;
+        public List<BaseCardSO> InputCards; // Liste des cartes d'entrée pour la combinaison
+        public List<BaseCardSO> OutputCards; // Liste des cartes résultantes de la combinaison
     }
 }

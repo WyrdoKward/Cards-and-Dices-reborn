@@ -19,3 +19,5 @@ MonoBehaviour:
   IsUnique: 0
   BehaviourScriptToLoad: JunkArtisan
   TalkDuration: 10
+  CardCombinations:
+  - {fileID: 11400000, guid: 3033704aeaa2d0e4cab2c26c51eb8260, type: 2}

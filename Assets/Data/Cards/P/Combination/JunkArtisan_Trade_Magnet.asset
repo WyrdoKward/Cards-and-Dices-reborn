@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5228e4addec71ee40a808135afe492f9, type: 3}
   m_Name: JunkArtisan_Trade_Magnet
   m_EditorClassIdentifier: 
-  inputCards:
-  - {fileID: 11400000, guid: 3b68b17e06273574289f01b4296f1052, type: 2}
+  InteractionType: 0
+  InputCards:
   - {fileID: 11400000, guid: 0eaee3c0d006dfa4c9f48f59078bbf26, type: 2}
   - {fileID: 11400000, guid: 879c7fd43e79c5147999309ae04d91e8, type: 2}
-  outputCards:
+  - {fileID: 11400000, guid: 3b68b17e06273574289f01b4296f1052, type: 2}
+  OutputCards:
   - {fileID: 11400000, guid: 11585d0402815114d9c3a22d9cd27258, type: 2}

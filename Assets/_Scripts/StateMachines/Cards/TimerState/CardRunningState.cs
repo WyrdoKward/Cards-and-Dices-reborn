@@ -45,8 +45,8 @@ namespace Assets._Scripts.StateMachines.Cards.TimerState
         {
             CastContext(uncastController);
             var isTimerOver = timer.Update();
-            var isCurrentStackAReceipe = cardGO.GetComponent<CardLogic>().GetActionToExecuteAfterTimer() != null;
-            if (!isCurrentStackAReceipe || isTimerOver)
+            var isCurrentStackACombination = cardGO.GetComponent<CardLogic>().GetActionToExecuteAfterTimer() != null;
+            if (!isCurrentStackACombination || isTimerOver)
             {
                 cardController.SwitchState(cardController.NoTimerState);
             }

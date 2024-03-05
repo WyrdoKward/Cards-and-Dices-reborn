@@ -43,10 +43,10 @@ public static class StatMachineGOExtension
     /// Pas running=> si receipe => lancer
     /// </summary>
     /// <returns>True si une recette correspond</returns>
-    public static bool RunOrResetIfRecipe(this GameObject gameObject)
+    public static bool RunOrResetIfCombination(this GameObject gameObject)
     {
         if (gameObject == null) return false;
-        Debug.Log($"Run if receipe {gameObject}");
+        Debug.Log($"Run if combination {gameObject}");
         var controller = gameObject.GetComponent<CardController>();
         var action = gameObject.GetComponent<CardLogic>().GetActionToExecuteAfterTimer();
 

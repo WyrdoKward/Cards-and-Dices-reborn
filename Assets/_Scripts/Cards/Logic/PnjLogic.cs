@@ -15,7 +15,7 @@ namespace Assets._Scripts.Cards.Logic
                 return Talk;
             }
 
-            return null;
+            return GetComponent<PnjSpecificBehaviour>()?.GetSpecificCombination();
         }
 
         public void Talk()
