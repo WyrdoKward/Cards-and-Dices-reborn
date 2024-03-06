@@ -14,7 +14,7 @@ namespace Assets._Scripts.GameData.CardsBehaviour.Threats
             var cardToEat = CardProvider.GetARandomCardByName("Scrap Metal");
             if (cardToEat != null)
             {
-                GameObject.Destroy(cardToEat);
+                Destroy(cardToEat);
             }
             Destroy(gameObject);
         }

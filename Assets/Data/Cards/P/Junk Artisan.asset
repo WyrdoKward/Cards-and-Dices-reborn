@@ -21,3 +21,4 @@ MonoBehaviour:
   TalkDuration: 10
   CardCombinations:
   - {fileID: 11400000, guid: 3033704aeaa2d0e4cab2c26c51eb8260, type: 2}
+  - {fileID: 11400000, guid: dfdf2c9fa98aea64cbb6bbdfb92e747a, type: 2}

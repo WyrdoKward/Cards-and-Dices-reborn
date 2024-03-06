@@ -10,17 +10,13 @@ namespace Assets._Scripts.Cards.Logic
 
         internal override Action GetActionToExecuteAfterTimer()
         {
+            //Déplacer dans GetSpecificCombination et le ronommer ?
             if (CardController.NextCardInStack.Is(ECardType.Follower))
             {
-                return Talk;
+                GetComponent<PnjSpecificBehaviour>()?.Talk();
             }
 
             return GetComponent<PnjSpecificBehaviour>()?.GetSpecificCombination();
-        }
-
-        public void Talk()
-        {
-            GetComponent<PnjSpecificBehaviour>()?.Talk();
         }
     }
 }

@@ -21,6 +21,8 @@ namespace Assets._Scripts.Cards
 
         public static BaseCardSO BaseCardSO(this GameObject gameObject)
         {
+            if (gameObject == null) return null;
+
             return gameObject.GetComponent<CardController>().CardSO;
         }
     }

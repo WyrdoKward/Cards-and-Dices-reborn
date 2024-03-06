@@ -35,7 +35,7 @@ namespace Assets._Scripts.Systems
             }
         }
 
-        private void SpawnCard(BaseCardSO cardData)
+        public void SpawnCard(BaseCardSO cardData)
         {
             Debug.Log($"SpawnCard {cardData.Name}");
             var controller = CardPrefab.GetComponentInChildren<CardController>();

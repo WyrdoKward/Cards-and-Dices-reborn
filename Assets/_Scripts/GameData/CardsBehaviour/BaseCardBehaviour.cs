@@ -1,4 +1,5 @@
 ﻿using Assets._Scripts.Managers;
+using Assets._Scripts.Systems;
 using Assets._Scripts.Utilities.Cache;
 using UnityEngine;
 
@@ -11,10 +12,12 @@ namespace Assets._Scripts.GameData.CardsBehaviour
     internal abstract class BaseCardBehaviour : MonoBehaviour
     {
         protected CardProvider CardProvider;
+        protected CardSpawner CardSpawner;
 
         private void Awake()
         {
             CardProvider = GameObject.Find("Managers/CardManager").GetComponent<CardProvider>();
+            CardSpawner = GameObject.Find("Managers/CardManager").GetComponent<CardSpawner>();
         }
 
         private void Start()
