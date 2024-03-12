@@ -1,4 +1,5 @@
-﻿using Assets._Scripts.Utilities.Cache;
+﻿using Assets._Scripts.Utilities;
+using Assets._Scripts.Utilities.Cache;
 using UnityEngine;
 
 namespace Assets._Scripts.ScriptableObjects.Entities
@@ -10,6 +11,7 @@ namespace Assets._Scripts.ScriptableObjects.Entities
         public string Lore; // Long description
         public Sprite Artwork;
         public bool IsUnique;
+        public float TimerDuration = GlobalVariables.DefaultTimerDuration;
         [Tooltip("Le nom du script à charger depuis GameData/CardsBehaviour/xxx")]
         public string BehaviourScriptToLoad;
 

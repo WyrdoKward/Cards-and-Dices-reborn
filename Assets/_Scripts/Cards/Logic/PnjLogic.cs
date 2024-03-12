@@ -13,10 +13,15 @@ namespace Assets._Scripts.Cards.Logic
             //Déplacer dans GetSpecificCombination et le ronommer ?
             if (CardController.NextCardInStack.Is(ECardType.Follower))
             {
-                GetComponent<PnjSpecificBehaviour>()?.Talk();
+                return Talk;
             }
 
-            return GetComponent<PnjSpecificBehaviour>()?.GetSpecificCombination();
+            return GetComponent<PnjSpecificBehaviour>().GetSpecificCombination();
+        }
+
+        private void Talk()
+        {
+            GetComponent<PnjSpecificBehaviour>()?.Talk();
         }
     }
 }

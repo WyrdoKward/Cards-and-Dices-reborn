@@ -436,6 +436,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AllCards: []
+  OccupiedPositions: []
 --- !u!114 &283615171
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -451,6 +452,7 @@ MonoBehaviour:
   CardPrefab: {fileID: 4828187005928406219, guid: 5d0bcb01c6904a44bb27a137922007d6, type: 3}
   CardContainerGO: {fileID: 1060692956}
   DefaultLoot: {fileID: 0}
+  PositionsToVisualize: []
 --- !u!224 &367836667 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4828187005928406220, guid: 5d0bcb01c6904a44bb27a137922007d6, type: 3}
@@ -466,14 +468,14 @@ PrefabInstance:
     - target: {fileID: 3048168227795186792, guid: 5d0bcb01c6904a44bb27a137922007d6, type: 3}
       propertyPath: CardSO
       value: 
-      objectReference: {fileID: 11400000, guid: 3b68b17e06273574289f01b4296f1052, type: 2}
+      objectReference: {fileID: 11400000, guid: 25034902abf772e48935ca01d7378364, type: 2}
     - target: {fileID: 3048168227795186792, guid: 5d0bcb01c6904a44bb27a137922007d6, type: 3}
       propertyPath: canvas
       value: 
       objectReference: {fileID: 1931166589}
     - target: {fileID: 4828187005928406219, guid: 5d0bcb01c6904a44bb27a137922007d6, type: 3}
       propertyPath: m_Name
-      value: Currency
+      value: Junk Artisan
       objectReference: {fileID: 0}
     - target: {fileID: 4828187005928406220, guid: 5d0bcb01c6904a44bb27a137922007d6, type: 3}
       propertyPath: m_Pivot.x
@@ -2103,7 +2105,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_UiScaleMode: 1
-  m_ReferencePixelsPerUnit: 100
+  m_ReferencePixelsPerUnit: 1
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0

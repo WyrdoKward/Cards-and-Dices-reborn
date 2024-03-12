@@ -1,6 +1,5 @@
 ﻿using Assets._Scripts.Cards.Common;
 using Assets._Scripts.Utilities;
-using UnityEngine;
 
 namespace Assets._Scripts.StateMachines.Cards.MovementState
 {
@@ -10,7 +9,7 @@ namespace Assets._Scripts.StateMachines.Cards.MovementState
         {
             CastContext(uncastController);
 
-            Debug.Log($"{cardController.gameObject} following {cardController.PreviousCardInStack}");
+            //Debug.Log($"{cardController.gameObject} following {cardController.PreviousCardInStack}");
             //Update position to snap correctly on previous
             cardGO.transform.localScale = GlobalVariables.CardBiggerScale;
             cardController.GetComponent<CardDisplay>().FollowPreviousCard(cardController.PreviousCardInStack);

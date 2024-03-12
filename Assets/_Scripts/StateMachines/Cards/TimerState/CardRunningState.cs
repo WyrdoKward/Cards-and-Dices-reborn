@@ -1,4 +1,5 @@
-﻿using Assets._Scripts.Cards.Logic;
+﻿using Assets._Scripts.Cards;
+using Assets._Scripts.Cards.Logic;
 using Assets._Scripts.Systems.Timer;
 using Assets._Scripts.Utilities;
 using System;
@@ -60,7 +61,7 @@ namespace Assets._Scripts.StateMachines.Cards.TimerState
                 return;
             }
 
-            timer = new CardTimer(cardGO, EndTimerAction, TimerDuration ?? GlobalVariables.DefaultTimerDuration);
+            timer = new CardTimer(cardGO, EndTimerAction, cardGO.BaseCardSO().TimerDuration);
         }
 
         private void DisperseCards()

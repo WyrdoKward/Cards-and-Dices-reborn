@@ -10,6 +10,7 @@ namespace Assets._Scripts.ScriptableObjects.Entities
     {
         public float TalkDuration = 10f;
         public List<CardCombinationSO> CardCombinations;
+        public QuestCardSO Quest;
 
         public override void InitializedCardWithScriptableObject(GameObject cardBodyGO)
         {
