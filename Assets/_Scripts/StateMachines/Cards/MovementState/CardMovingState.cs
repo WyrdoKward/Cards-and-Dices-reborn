@@ -68,7 +68,8 @@ namespace Assets._Scripts.StateMachines.Cards.MovementState
 
             if (MovingByMouse) return;
 
-            // Si il est en "pilote auto" (Diperse par ex.), passe en idle si la cible est atteinte
+            // Passe en idle si la cible est atteinte seulement si il est en "pilote auto" (Diperse par ex.)
+            // sinon ça hache le mouvement sur un drag à la souris quand la carte atteint sa cible, le curseur
             if ((Vector2)_rectTransform.position == TargetPosition)
             {
                 cardController.SwitchState(cardController.IdleState);

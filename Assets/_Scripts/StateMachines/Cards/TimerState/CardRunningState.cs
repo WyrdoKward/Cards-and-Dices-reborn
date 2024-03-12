@@ -18,13 +18,13 @@ namespace Assets._Scripts.StateMachines.Cards.TimerState
             cardGO.GetComponent<Canvas>().sortingOrder = StackHelper.ComputeOrderInLayer(cardGO);
 
             InitTimer();
-            Debug.Log($"[CardRunningState] {cardGO} running with {EndTimerAction.Method}");
+            //Debug.Log($"[CardRunningState] {cardGO} running with {EndTimerAction.Method}");
         }
 
         public override void Exit(IStateContext uncastController)
         {
             CastContext(uncastController);
-            Debug.Log($"[CardRunningState] {cardGO} exit running {EndTimerAction.Method}");
+            //Debug.Log($"[CardRunningState] {cardGO} exit running {EndTimerAction.Method}");
             EndTimerAction = null;
             timer.Destroy(cardGO);
             DisperseCards();
