@@ -115,5 +115,26 @@ namespace Assets._Scripts.Systems
             }
             return Vector2.zero;
         }
+
+        Vector2 GetFreePositionNerOrigin(Vector2 origin, float offsetX, float offsetY)
+        {
+            var positionToTry = new Vector2(origin.x + offsetX, origin.y + offsetY);
+            var diameter = 2;
+            while (diameter < 20)
+            {
+                diameter += 2;
+                var randomWorldPosition = Camera.main.ScreenToWorldPoint(positionToTry);
+                if (!cardProvider.IsPositionOccupiedByCard(randomWorldPosition))
+                    return randomWorldPosition;
+
+                // -x * nb diameter tries
+                // -y * nb diameter tries
+                // +x * nb diameter tries
+                // +y * nb diameter tries
+
+
+            }
+            return Vector2.zero;
+        }
     }
 }

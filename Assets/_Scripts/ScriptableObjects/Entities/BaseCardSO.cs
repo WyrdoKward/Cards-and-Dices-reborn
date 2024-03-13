@@ -1,5 +1,6 @@
 ﻿using Assets._Scripts.Utilities;
 using Assets._Scripts.Utilities.Cache;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets._Scripts.ScriptableObjects.Entities
@@ -11,9 +12,22 @@ namespace Assets._Scripts.ScriptableObjects.Entities
         public string Lore; // Long description
         public Sprite Artwork;
         public bool IsUnique;
-        public float TimerDuration = GlobalVariables.DefaultTimerDuration;
+        [Tooltip("Si cette carte peut se transformer (via son BehaviourScriptToLoad), mettre le SO de ses autres formes ici")]
+        public List<BaseCardSO> OtherForms = new List<BaseCardSO>();
+
+        public float TimerDuration = GlobalVariables.DefaultTimerDuration; //TODO a déplacer dans une classe intertmédiaire => BaseTimedCardSO : BaseCardSO et en faire hériter les P, T, L... mais pas les R par exemple
         [Tooltip("Le nom du script à charger depuis GameData/CardsBehaviour/xxx")]
         public string BehaviourScriptToLoad;
+
+
+        public void OnEnable()
+        {
+            //Vérifications d'intégrité des SO
+            if (OtherForms.Count > 0 && string.IsNullOrEmpty(BehaviourScriptToLoad))
+            {
+                Debug.LogWarning($"{Name} référence {OtherForms.Count} transformation(s) mais n'a pas de 'BehaviourScriptToLoad' pour l('|es) utiliser.");
+            }
+        }
 
         public void Print()
         {

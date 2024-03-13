@@ -1,4 +1,5 @@
 using Assets._Scripts.Cards.Logic;
+using Assets._Scripts.GameData.CardsBehaviour;
 using Assets._Scripts.Managers;
 using Assets._Scripts.ScriptableObjects.Entities;
 using Assets._Scripts.StateMachines;
@@ -66,6 +67,24 @@ namespace Assets._Scripts.Cards.Common
             currentTimerState.Enter(this);
         }
 
+        /// <summary>
+        /// Rechage les scripts et les données du GO.
+        /// Permet de le transformer avec un nouveau SO.
+        /// </summary>
+        public void ReloadCard(BaseCardSO newCardSO = null)
+        {
+            if (newCardSO != null)
+            {
+                CardSO = newCardSO;
+            }
+
+            DestroyImmediate(gameObject.GetComponent<CardLogic>());
+            DestroyImmediate(gameObject.GetComponent<BaseCardBehaviour>());
+
+            gameObject.name = CardSO.Name;
+            CardSO.InitializedCardWithScriptableObject(gameObject);
+            OnStartCard?.Invoke(CardSO);
+        }
 
         void Update()
         {
@@ -77,7 +96,7 @@ namespace Assets._Scripts.Cards.Common
         {
             UnlinkNextCard();
             UnlinkPreviousCard();
-            GameObject.Find("Managers/CardManager").GetComponent<CardProvider>().AllCards.Remove(gameObject);
+            GameObject.Find("Managers/CardManager").GetComponent<CardProvider>().AllCards.Remove(gameObject); //NPE car déja removed automatiquement ?
         }
 
         public void SwitchState(IState newState)

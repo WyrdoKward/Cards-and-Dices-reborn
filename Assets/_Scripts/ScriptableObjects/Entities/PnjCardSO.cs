@@ -8,7 +8,6 @@ namespace Assets._Scripts.ScriptableObjects.Entities
     [CreateAssetMenu(fileName = "New Pnj", menuName = "Card/Pnj")]
     internal class PnjCardSO : BaseCardSO
     {
-        public float TalkDuration = 10f;
         public List<CardCombinationSO> CardCombinations;
         public QuestCardSO Quest;
 

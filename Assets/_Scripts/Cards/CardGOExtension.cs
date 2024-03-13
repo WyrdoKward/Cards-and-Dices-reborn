@@ -11,12 +11,18 @@ namespace Assets._Scripts.Cards
     /// </summary>
     internal static class CardGOExtension
     {
-        /// <returns>True if the GO is of type ECardType</returns>
-        public static bool Is(this GameObject gameObject, ECardType cardType)
+        /// <returns>Compare name and card type</returns>
+        public static bool Is(this GameObject gameObject, ECardType cardType, string name = null)
         {
             if (gameObject == null) return false;
 
-            return gameObject.GetComponent<CardLogic>().CardType == cardType;
+            if (gameObject.GetComponent<CardLogic>().CardType != cardType)
+                return false;
+
+            if (string.IsNullOrEmpty(name) || name == gameObject.GetComponent<CardController>().CardSO.Name)
+                return true;
+
+            return false;
         }
 
         public static BaseCardSO BaseCardSO(this GameObject gameObject)
@@ -24,6 +30,13 @@ namespace Assets._Scripts.Cards
             if (gameObject == null) return null;
 
             return gameObject.GetComponent<CardController>().CardSO;
+        }
+
+        public static void TransformInto(this GameObject gameObject, BaseCardSO newCard)
+        {
+            if (gameObject == null) return;
+
+            gameObject.GetComponent<CardController>().ReloadCard(newCard);
         }
     }
 }
