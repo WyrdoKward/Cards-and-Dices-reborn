@@ -66,7 +66,10 @@ namespace Assets._Scripts.Utilities
         {
             throw new NotImplementedException();
         }
-
+        /// <summary>
+        /// Fonction récursive qui utilise le chaînage des cartes pour récupérer les cartes au dessus du GO en paramètre
+        /// </summary>
+        /// <returns>Tous les GO au dessus de "card"</returns>
         internal static List<GameObject> GetCardsAboveInStack(GameObject card)
         {
             var cardsAbove = new List<GameObject>();

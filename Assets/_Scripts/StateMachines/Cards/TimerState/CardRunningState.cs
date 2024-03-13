@@ -1,4 +1,5 @@
-﻿using Assets._Scripts.Cards.Logic;
+﻿using Assets._Scripts.Cards;
+using Assets._Scripts.Cards.Logic;
 using Assets._Scripts.Systems.Timer;
 using Assets._Scripts.Utilities;
 using System;
@@ -18,13 +19,13 @@ namespace Assets._Scripts.StateMachines.Cards.TimerState
             cardGO.GetComponent<Canvas>().sortingOrder = StackHelper.ComputeOrderInLayer(cardGO);
 
             InitTimer();
-            Debug.Log($"[CardRunningState] {cardGO} running with {EndTimerAction.Method}");
+            //Debug.Log($"[CardRunningState] {cardGO} running with {EndTimerAction.Method}");
         }
 
         public override void Exit(IStateContext uncastController)
         {
             CastContext(uncastController);
-            Debug.Log($"[CardRunningState] {cardGO} exit running {EndTimerAction.Method}");
+            //Debug.Log($"[CardRunningState] {cardGO} exit running {EndTimerAction.Method}");
             EndTimerAction = null;
             timer.Destroy(cardGO);
             DisperseCards();
@@ -45,8 +46,8 @@ namespace Assets._Scripts.StateMachines.Cards.TimerState
         {
             CastContext(uncastController);
             var isTimerOver = timer.Update();
-            var isCurrentStackAReceipe = cardGO.GetComponent<CardLogic>().GetActionToExecuteAfterTimer() != null;
-            if (!isCurrentStackAReceipe || isTimerOver)
+            var isCurrentStackACombination = cardGO.GetComponent<CardLogic>().GetActionToExecuteAfterTimer() != null;
+            if (!isCurrentStackACombination || isTimerOver)
             {
                 cardController.SwitchState(cardController.NoTimerState);
             }
@@ -60,7 +61,7 @@ namespace Assets._Scripts.StateMachines.Cards.TimerState
                 return;
             }
 
-            timer = new CardTimer(cardGO, EndTimerAction, TimerDuration ?? GlobalVariables.DefaultTimerDuration);
+            timer = new CardTimer(cardGO, EndTimerAction, cardGO.BaseCardSO().TimerDuration);
         }
 
         private void DisperseCards()

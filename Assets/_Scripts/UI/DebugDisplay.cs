@@ -17,17 +17,10 @@ public class DebugDisplay : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //cardPos.text = CardToWatch.transform.position.ToString();
         // les 2 suivants sont dans le emme référentiel ok
-        //var transformPos = Camera.main.WorldToScreenPoint(CardToWatch.transform.position);
-
-        cardPos.text = CardToWatch.GetComponent<RectTransform>().position.z.ToString();
+        cardPos.text = CardToWatch.GetComponent<RectTransform>().position.ToString();
         var mouse = InputHelper.GetCursorPositionInWorld();
-        //mouse.z = Camera.main.transform.position.z;
-        ////
-        //mouse.z = Camera.main.transform.position.z;
-
-        mousePos.text = Camera.main.ScreenToWorldPoint(mouse).ToString();
+        mousePos.text = mouse.ToString();
     }
 
     private Vector3 GetMousePosition()

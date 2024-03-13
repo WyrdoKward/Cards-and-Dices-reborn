@@ -7,5 +7,6 @@
         Resource,
         Threat,
         Pnj,
+        Quest
     }
 }

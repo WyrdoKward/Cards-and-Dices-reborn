@@ -44,7 +44,7 @@ namespace Assets._Scripts.StateMachines.Cards.MovementState
             CastContext(uncastController);
             var targetCard = DragAndDropHelper.FindOverlappedCardIfExists(cardGO);
             cardController.SetPreviousCard(targetCard);
-            Debug.Log($"targetCard = {targetCard}");
+            //Debug.Log($"targetCard = {targetCard}");
             if (targetCard == null)
             {
                 cardController.SwitchState(cardController.IdleState);
@@ -56,7 +56,7 @@ namespace Assets._Scripts.StateMachines.Cards.MovementState
 
             // Si il y a une recette, on la lance
             var firstcardOfStack = StackHelper.GetFirstCardOfStack(cardGO);
-            firstcardOfStack.RunOrResetIfRecipe();
+            firstcardOfStack.RunOrResetIfCombination();
 
             cardController.SwitchState(cardController.FollowingState);
         }
@@ -68,7 +68,8 @@ namespace Assets._Scripts.StateMachines.Cards.MovementState
 
             if (MovingByMouse) return;
 
-            // Si il est en "pilote auto" (Diperse par ex.), passe en idle si la cible est atteinte
+            // Passe en idle si la cible est atteinte seulement si il est en "pilote auto" (Diperse par ex.)
+            // sinon ça hache le mouvement sur un drag à la souris quand la carte atteint sa cible, le curseur
             if ((Vector2)_rectTransform.position == TargetPosition)
             {
                 cardController.SwitchState(cardController.IdleState);
