@@ -46,5 +46,13 @@ namespace Assets._Scripts.Managers
             }
             return false;
         }
+
+        public void Remove(GameObject card)
+        {
+            if (card == null) return;
+
+            if (AllCards.Contains(card))
+                AllCards.Remove(gameObject);
+        }
     }
 }

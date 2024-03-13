@@ -96,7 +96,7 @@ namespace Assets._Scripts.Cards.Common
         {
             UnlinkNextCard();
             UnlinkPreviousCard();
-            GameObject.Find("Managers/CardManager").GetComponent<CardProvider>().AllCards.Remove(gameObject); //NPE car déja removed automatiquement ?
+            GameObject.Find("Managers/CardManager").GetComponent<CardProvider>().Remove(gameObject);
         }
 
         public void SwitchState(IState newState)
