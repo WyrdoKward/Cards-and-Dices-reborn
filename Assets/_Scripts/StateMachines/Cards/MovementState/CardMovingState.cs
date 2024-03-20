@@ -7,6 +7,8 @@ namespace Assets._Scripts.StateMachines.Cards.MovementState
     public class CardMovingState : CardBaseMovementState
     {
         public bool MovingByMouse = false;
+        private GameObject CardHovered;
+        private bool isHoveringCard = false;
         public override void Enter(IStateContext uncastController)
         {
             CastContext(uncastController);
@@ -36,7 +38,36 @@ namespace Assets._Scripts.StateMachines.Cards.MovementState
         {
             CastContext(uncastController);
             TargetPosition = InputHelper.GetCursorPositionInWorld() - cardController.MouseDelta;
-            //Debug.Log($"Dragging {cardGO}");
+
+            CheckIfHoveringAnotherCard();
+        }
+
+        private void CheckIfHoveringAnotherCard()
+        {
+            //Si on survole une autre carte, on récupère l'action comme si les cartes étaient stackées
+            var targetCard = DragAndDropHelper.FindOverlappedCardIfExists(cardGO);
+
+
+            if (!isHoveringCard && targetCard != null) //Si on entre sur une carte
+            {
+                isHoveringCard = true;
+                CardHovered = targetCard;
+                CardHovered.GetComponent<CardController>().OnHoverEnter(cardGO);
+
+            }
+            else if (isHoveringCard && targetCard == null) //Si on sort d'une carte
+            {
+                isHoveringCard = false;
+                CardHovered.GetComponent<CardController>().OnHoverExit();
+                CardHovered = null;
+            }
+            else if (targetCard != null && targetCard != CardHovered) //Si on passe d'une carte à une autre sans transition
+            {
+                isHoveringCard = true;
+                CardHovered.GetComponent<CardController>().OnHoverExit();
+                CardHovered = targetCard;
+                CardHovered.GetComponent<CardController>().OnHoverEnter(cardGO);
+            }
         }
 
         public override void OnMouseUp(IStateContext uncastController)

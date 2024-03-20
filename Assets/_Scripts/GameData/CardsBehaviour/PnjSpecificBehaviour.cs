@@ -1,4 +1,5 @@
 ﻿using Assets._Scripts.Cards;
+using Assets._Scripts.GameData.CardsBehaviour.Actions;
 using Assets._Scripts.ScriptableObjects;
 using Assets._Scripts.ScriptableObjects.Entities;
 using Assets._Scripts.Utilities;
@@ -48,6 +49,7 @@ namespace Assets._Scripts.GameData.CardsBehaviour
         {
         }
 
+        [ActionName("Un échange est possible...")]
         protected virtual void Trade()
         {
             //Delete input cards in stack

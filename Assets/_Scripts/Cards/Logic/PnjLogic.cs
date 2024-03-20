@@ -1,4 +1,5 @@
 ﻿using Assets._Scripts.GameData.CardsBehaviour;
+using Assets._Scripts.GameData.CardsBehaviour.Actions;
 using Assets._Scripts.Utilities.Enums;
 using System;
 
@@ -19,6 +20,7 @@ namespace Assets._Scripts.Cards.Logic
             return GetComponent<PnjSpecificBehaviour>().GetSpecificCombination();
         }
 
+        [ActionName("Parler")]
         private void Talk()
         {
             GetComponent<PnjSpecificBehaviour>()?.Talk();

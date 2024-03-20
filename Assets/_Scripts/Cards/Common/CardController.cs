@@ -1,5 +1,6 @@
 using Assets._Scripts.Cards.Logic;
 using Assets._Scripts.GameData.CardsBehaviour;
+using Assets._Scripts.GameData.CardsBehaviour.Actions;
 using Assets._Scripts.Managers;
 using Assets._Scripts.ScriptableObjects.Entities;
 using Assets._Scripts.StateMachines;
@@ -31,6 +32,8 @@ namespace Assets._Scripts.Cards.Common
 
         // Context elements
         public event Action<BaseCardSO> OnStartCard;
+        public event Action<string> OnHoverEnterCard;
+        public event Action OnHoverExitCard;
 
         public GameObject PreviousCardInStack;
         public GameObject NextCardInStack;
@@ -200,7 +203,6 @@ namespace Assets._Scripts.Cards.Common
                 currentMovementState.OnMouseDrag(this);
         }
 
-
         //quand on relache la carte
         private void OnMouseUp()
         {
@@ -209,6 +211,39 @@ namespace Assets._Scripts.Cards.Common
 
             MousePosOnMouseDown = Vector2.zero;
             currentMovementState.OnMouseUp(this);
+        }
+
+        public void OnHoverEnter(GameObject hoveringCard)
+        {
+            SetNextCard(hoveringCard);
+
+            var action = GetComponent<CardLogic>().GetActionToExecuteAfterTimer();
+            if (action == null)
+            {
+                SetNextCard(null);
+                return;
+            }
+
+            var attribute = (ActionNameAttribute)Attribute.GetCustomAttribute(action.Method, typeof(ActionNameAttribute));
+
+            // Vérifier si l'attribut a été trouvé
+            if (attribute != null)
+            {
+                var actionName = attribute.Name;
+                OnHoverEnterCard?.Invoke(actionName);
+                Debug.Log("Le nom de l'action est : " + actionName);
+            }
+            else
+            {
+                Console.WriteLine("L'attribut ActionNameAttribute n'a pas été trouvé.");
+            }
+
+            SetNextCard(null);
+        }
+
+        public void OnHoverExit()
+        {
+            OnHoverExitCard?.Invoke();
         }
         #endregion
     }

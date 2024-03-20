@@ -15,12 +15,15 @@ namespace Assets._Scripts.Cards.Common
         public TextMeshProUGUI DescriptionText;
         public Image ArtworkImage;
         public TextMeshProUGUI DebugInfo;
+        public TextMeshProUGUI ActionInfo;
 
 
         void Awake()
         {
             var cardController = GetComponent<CardController>();
             cardController.OnStartCard += LoadCardData;
+            cardController.OnHoverEnterCard += DisplayAction;
+            cardController.OnHoverExitCard += HideAction;
         }
 
         private void Update()
@@ -47,6 +50,16 @@ namespace Assets._Scripts.Cards.Common
             }
         }
 
+        private void DisplayAction(string actionName)
+        {
+            ActionInfo.text = actionName;
+        }
+
+        private void HideAction()
+        {
+            ActionInfo.text = "";
+        }
+
         public void ResetToDefaultDisplay()
         {
             transform.localScale = GlobalVariables.CardDefaultScale;
@@ -59,6 +72,8 @@ namespace Assets._Scripts.Cards.Common
 
             if (targetCard == null)
                 return;
+
+            targetCard.GetComponent<CardDisplay>().HideAction();
 
             Debug.Log($"Dropped {gameObject.GetComponent<CardDisplay>().name} on {targetCard.GetComponent<CardDisplay>().name}");
 

@@ -1,4 +1,5 @@
 ﻿using Assets._Scripts.Cards;
+using Assets._Scripts.GameData.CardsBehaviour.Actions;
 using Assets._Scripts.ScriptableObjects.Entities;
 using Assets._Scripts.Utilities;
 using Assets._Scripts.Utilities.Cache;
@@ -24,13 +25,15 @@ namespace Assets._Scripts.GameData.CardsBehaviour.Pnj
             if (cardsAbove.Count == 1 && firstCard.Is(ECardType.Resource, "Quest Object"))
             {
                 questObject = firstCard;
-                return TransformIntoFollower;
+                return ResolveQuest;
             }
 
             //Si aucune, on cherche une action spécifiques à son type (PnjSpecificBehaviour)
             return base.GetSpecificCombination();
         }
 
+
+        [ActionName("Parler à Junk Artisan")] //Info : jamais affiché car c'est PnjLogic.Talk qui est apellé à la base.
         public override void Talk()
         {
             base.Talk();
@@ -56,8 +59,10 @@ namespace Assets._Scripts.GameData.CardsBehaviour.Pnj
             base.Trade();
         }
 
-        private void TransformIntoFollower()
+        [ActionName("Résoudre la quête")]
+        private void ResolveQuest()
         {
+            //Transform into follower
             Destroy(questObject);
             questGiven = false;
             gameObject.TransformInto(gameObject.BaseCardSO().OtherForms[0]);

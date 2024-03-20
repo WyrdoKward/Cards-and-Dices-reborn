@@ -52,7 +52,7 @@ namespace Assets._Scripts.Managers
             if (card == null) return;
 
             if (AllCards.Contains(card))
-                AllCards.Remove(gameObject);
+                AllCards.Remove(card);
         }
     }
 }

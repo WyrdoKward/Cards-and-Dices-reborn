@@ -1,4 +1,5 @@
-﻿using Assets._Scripts.ScriptableObjects.Entities;
+﻿using Assets._Scripts.GameData.CardsBehaviour.Actions;
+using Assets._Scripts.ScriptableObjects.Entities;
 using Assets._Scripts.Utilities;
 using Assets._Scripts.Utilities.Enums;
 using System;
@@ -29,6 +30,7 @@ namespace Assets._Scripts.Cards.Logic
             return StackHelper.GetCardsAboveInStack(gameObject).All(c => c.Is(ECardType.Follower));
         }
 
+        [ActionName("Explorer")]
         private void Explore()
         {
             var followers = StackHelper.GetCardsAboveInStack(gameObject);
