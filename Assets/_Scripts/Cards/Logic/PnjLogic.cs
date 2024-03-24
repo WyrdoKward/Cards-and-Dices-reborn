@@ -11,6 +11,8 @@ namespace Assets._Scripts.Cards.Logic
 
         internal override Action GetActionToExecuteAfterTimer()
         {
+            if (!base.VerifyReceipe()) return null;
+
             //Déplacer dans GetSpecificCombination et le ronommer ?
             if (CardController.NextCardInStack.Is(ECardType.Follower))
             {

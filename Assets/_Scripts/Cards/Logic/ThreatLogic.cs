@@ -10,6 +10,8 @@ namespace Assets._Scripts.Cards.Logic
 
         internal override Action GetActionToExecuteAfterTimer()
         {
+            if (!base.VerifyReceipe()) return null;
+
             if (CardController.NextCardInStack == null)
                 return ExecuteThreatAfterTimer;
 

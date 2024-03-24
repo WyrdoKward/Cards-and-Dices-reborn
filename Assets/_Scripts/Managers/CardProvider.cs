@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using Assets._Scripts.Cards.Common;
+using Assets._Scripts.Cards.Logic;
+using Assets._Scripts.Utilities;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -22,6 +25,47 @@ namespace Assets._Scripts.Managers
         public List<GameObject> GetAllCardsExcept(List<GameObject> notThisCards)
         {
             return AllCards.Except(notThisCards).ToList();
+        }
+
+        public List<List<GameObject>> GetAllStacksOrSingleCards()
+        {
+            var res = new List<List<GameObject>>();
+            //var processedCards = new HashSet<GameObject>(); //Si pblms de perfs: ne pas faire le FindAll mais utiliser cette liste pour stocker les cartes déjà traitées au fur et à mesure et sortir de la boucle directmeent
+
+            var allCardsWithoutPrevious = AllCards.FindAll(card => card.GetComponent<CardController>().PreviousCardInStack == null);
+            foreach (var card in allCardsWithoutPrevious)
+            {
+                //On ne prend que les cartes à la racine et on cherche leur stack
+                res.Add(StackHelper.GetFullStack(card));
+            }
+
+            return res;
+        }
+
+        //TODO tester le comportement aussi avec les cartes seules !!
+        public List<GameObject> GetAllCardsThatInteractsWith(GameObject cardDragged)
+        {
+            var res = new List<GameObject>();
+            var allStacks = GetAllStacksOrSingleCards();
+
+            foreach (var stackOrSingleCard in allStacks)
+            {
+                // Si des cartes sont seules ou stackées sur le board :
+                // SetNext temporairement sur celle du dessus pour imiter le chainage
+                // GetActionToExecuteAfterTimer sur celle à la base
+
+                var firstCard = stackOrSingleCard.First();
+                var lastCard = stackOrSingleCard.Last();
+
+                lastCard.GetComponent<CardController>().SetNextCard(cardDragged);
+                var action = firstCard.GetComponent<CardLogic>().GetActionToExecuteAfterTimer();
+                if (action != null)
+                    res.Add(firstCard);
+
+                lastCard.GetComponent<CardController>().SetNextCard(null);
+            }
+
+            return res;
         }
 
         public GameObject GetARandomCardByName(string name)

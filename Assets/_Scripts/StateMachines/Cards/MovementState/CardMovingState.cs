@@ -1,4 +1,5 @@
 ﻿using Assets._Scripts.Cards.Common;
+using Assets._Scripts.Managers;
 using Assets._Scripts.Utilities;
 using UnityEngine;
 
@@ -39,7 +40,15 @@ namespace Assets._Scripts.StateMachines.Cards.MovementState
             CastContext(uncastController);
             TargetPosition = InputHelper.GetCursorPositionInWorld() - cardController.MouseDelta;
 
+            HighlightInteractableCards();
+
             CheckIfHoveringAnotherCard();
+        }
+
+        private void HighlightInteractableCards()
+        {
+            var interactablesCards = GameObject.Find("Managers/CardManager").GetComponent<CardProvider>().GetAllCardsThatInteractsWith(cardGO);
+            //TODO : appliquer un outline aux interactablesCards
         }
 
         private void CheckIfHoveringAnotherCard()

@@ -1,5 +1,4 @@
 ﻿using Assets._Scripts.Cards.Common;
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -64,7 +63,12 @@ namespace Assets._Scripts.Utilities
         /// <returns>Index[0] = La carte la plus en dessous</returns>
         internal static List<GameObject> GetFullStack(GameObject card)
         {
-            throw new NotImplementedException();
+            var res = new List<GameObject>();
+            var firstCard = GetFirstCardOfStack(card);
+            res.Add(firstCard);
+            res.AddRange(GetCardsAboveInStack(firstCard));
+
+            return res;
         }
         /// <summary>
         /// Fonction récursive qui utilise le chaînage des cartes pour récupérer les cartes au dessus du GO en paramètre
@@ -96,7 +100,6 @@ namespace Assets._Scripts.Utilities
 
             return StackHelper.GetLastCardOfStack(nextCard);
         }
-
 
         /// <summary>
         /// Retourne la carte la plus proche d ela table du stack auquel appartient la carte en paramètre

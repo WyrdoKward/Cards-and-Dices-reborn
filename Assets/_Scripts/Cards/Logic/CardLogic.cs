@@ -34,8 +34,12 @@ namespace Assets._Scripts.Cards.Logic
         /// <exception cref="System.Exception"></exception>
         internal bool VerifyReceipe()
         {
+            //Do not call this on a card not first in its stack
             if (GetComponent<CardController>().PreviousCardInStack != null)
-                throw new System.Exception("Do not call this on a card not first in its stack");
+            {
+                Debug.LogWarning("Are you sure you need to call this on a card not first in its stack ?");
+                return false;
+            }
 
             // Si il n'y a pas de carte suivante
             if (GetComponent<CardController>().NextCardInStack == null)
@@ -48,10 +52,12 @@ namespace Assets._Scripts.Cards.Logic
 
         /// <summary>
         /// Renvoie la méthode qui correspond à la combinaison de cartes stackées
+        /// A apeller sur la PREMIERE carte du stack
         /// </summary>
         /// <returns></returns>
         internal virtual Action GetActionToExecuteAfterTimer()
         {
+            Debug.LogWarning("Are you sure you need to call this on the base class ? Maybe you forgot to implement it on the derived class.");
             return null;
         }
     }
